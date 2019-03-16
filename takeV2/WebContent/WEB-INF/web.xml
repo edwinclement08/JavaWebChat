@@ -9,6 +9,8 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+  
   <servlet>
     <servlet-name>RESTful Jersey Hello World Service</servlet-name>
     <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
@@ -16,10 +18,15 @@
         <param-name>jersey.config.server.provider.packages</param-name>
         <param-value>com.javapapers.webservices.rest.jersey</param-value>
     </init-param>
+    <init-param>
+		<param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+		<param-value>true</param-value>
+	</init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
     <servlet-name>RESTful Jersey Hello World Service</servlet-name>
     <url-pattern>/rest/*</url-pattern>
   </servlet-mapping>
+  
 </web-app>
