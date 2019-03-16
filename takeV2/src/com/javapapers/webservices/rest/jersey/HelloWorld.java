@@ -5,8 +5,17 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.javapapers.webservices.rest.jersey.models.DatabaseConnection;
+
 @Path("/helloworld")
 public class HelloWorld {
+	private DatabaseConnection db;
+	
+	public HelloWorld() {
+		db = DatabaseConnection.getDatabaseConnection();
+		
+		
+	}
 
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
@@ -28,5 +37,7 @@ public class HelloWorld {
 				+ "</title>" + "<body><h1>" + "Hello World RESTful Jersey"
 				+ "</body></h1>" + "</html> ";
 	}
+	
+	
 
 }
