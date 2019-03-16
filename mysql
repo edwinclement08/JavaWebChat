@@ -1,0 +1,10 @@
+docker run --name=mysql1 -d mysql/mysql-server
+
+password = 
+docker logs mysql1 2>&1 | grep GENERATED
+
+docker exec -it mysql1 mysql -uroot -p
+# enter password
+
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'password';
+
