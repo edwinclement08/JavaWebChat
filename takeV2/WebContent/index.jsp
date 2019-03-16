@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>ChatWebServer</title>
 </head>
-<body>Testing
-fgdssdfsdfv
+<body>
+<h2>Server is online</h2>
 </body>
 </html>
