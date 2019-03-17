@@ -12,7 +12,7 @@ public class HelloWorld {
 	private DatabaseConnection db;
 	
 	public HelloWorld() {
-		db = DatabaseConnection.getDatabaseConnection();
+		db = DatabaseConnection.getDatabase();
 		
 		
 	}
