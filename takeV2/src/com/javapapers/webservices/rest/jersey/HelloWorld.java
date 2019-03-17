@@ -5,7 +5,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.javapapers.webservices.rest.jersey.models.DatabaseConnection;
+import com.javapapers.webservices.rest.jersey.util.DatabaseConnection;
 
 @Path("/helloworld")
 public class HelloWorld {

@@ -1,4 +1,4 @@
-package com.javapapers.webservices.rest.jersey.models;
+package com.javapapers.webservices.rest.jersey.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,6 +12,9 @@ import java.util.Objects;
 import java.util.Optional;
 
 import javax.inject.Singleton;
+
+import com.javapapers.webservices.rest.jersey.models.DatabaseConnection;
+import com.javapapers.webservices.rest.jersey.models.User;
 
 @Singleton
 public class UserDao implements Dao<User> {

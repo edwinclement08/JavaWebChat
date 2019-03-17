@@ -1,4 +1,5 @@
-package com.javapapers.webservices.rest.jersey.models;
+package com.javapapers.webservices.rest.jersey.dao;
+
 
 import java.util.List;
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package com.javapapers.webservices.rest.jersey;
+package com.javapapers.webservices.rest.jersey.resthandler;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -13,8 +13,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.javapapers.webservices.rest.jersey.dao.UserDao;
 import com.javapapers.webservices.rest.jersey.models.User;
-import com.javapapers.webservices.rest.jersey.models.UserDao;
 
 @Path("/user")
 @Singleton
