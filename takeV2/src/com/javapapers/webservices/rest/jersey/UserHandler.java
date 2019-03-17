@@ -20,6 +20,7 @@ import com.javapapers.webservices.rest.jersey.models.UserDao;
 @Singleton
 public class UserHandler {
 	public UserDao userDao;
+	public static final boolean DEBUG = true;
 
 	public UserHandler() {
 		System.out.println("UserHandler init");
@@ -33,41 +34,63 @@ public class UserHandler {
 	}
 
 	@GET
-	@Path("/{username}")
+	@Path("/username/{username}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public ArrayList<User> getAll(@PathParam("username") String userName) {
+	public ArrayList<User> getByName(@PathParam("username") String userName) {
 
 		User user = new User("-", "-");
+		ArrayList<User> result = new ArrayList<User>();
+
 		try {
 			user = userDao.getByUserName(userName).get();
 		} catch (NoSuchElementException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
+			if (DEBUG)
+				System.out.println("No Such user present");
+			return result;
 		}
-		ArrayList<User> result = new ArrayList<User>();
 		result.add(user);
 		return result;
 
 	}
-	
+
+	@GET
+	@Path("/id/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<User> getById(@PathParam("id") long id) {
+
+		User user = new User("-", "-");
+		ArrayList<User> result = new ArrayList<User>();
+
+		try {
+			user = userDao.get(id).get();
+		} catch (NoSuchElementException e) {
+			// e.printStackTrace();
+			if (DEBUG)
+				System.out.println("No Such user present");
+			return result;
+		}
+		result.add(user);
+		return result;
+	}
+
 	@POST
 	@Path("/register")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public String registerUser(@FormParam("username") String userName,
-    		@FormParam("password") String password)	{
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public String registerUser(@FormParam("username") String userName, @FormParam("password") String password) {
 		User newUser = new User(userName, password);
 		String token = newUser.createToken();
-		userDao.save(newUser);
+		boolean status = userDao.save(newUser);
 		String jsonString = "{'username': '%s', 'token':'%s', 'status': '%b'}".replace("'", "\"");
-		return String.format(jsonString, userName, token, true);
-		
+		return String.format(jsonString, userName, token, status);
+
 	}
-	
+
 	@POST
 	@Path("/login")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String loginUser(@FormParam("username") String userName,
-			@FormParam("password") String password) {
+	public String loginUser(@FormParam("username") String userName, @FormParam("password") String password) {
 		String responseString = "{'status': '%b', 'token':'%s', 'message':'%s' }".replace("'", "\"");
 		User user = new User("-", "-");
 		try {
@@ -78,5 +101,31 @@ public class UserHandler {
 			return String.format(responseString, false, "No Such User");
 		}
 	}
+
+	@POST
+	@Path("/delete/")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String deleteUser(@FormParam("username") String userName, @FormParam("password") String password) {
+		String responseString = "{'status': '%b', 'message':'%s' }".replace("'", "\"");
+
+		boolean status = userDao.deleteByUsername(userName, password);
+		if (status)
+			return String.format(responseString, status, "Successful Deletion");
+		else
+			return String.format(responseString, false, "No Such User");
+
+	}
 	
+	@POST
+	@Path("/update")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public String updateUser(@FormParam("username") String userName, 
+			@FormParam("oldpassword") String oldPassword,
+			@FormParam("newpassword") String newPassword) {
+		boolean status = userDao.updateByUsername(userName, oldPassword, new String[] {userName, newPassword});
+		String jsonString = "{'username': '%s', 'status': '%b'}".replace("'", "\"");
+		return String.format(jsonString, userName, status);
+
+	}
 }

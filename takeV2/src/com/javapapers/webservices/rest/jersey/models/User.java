@@ -33,7 +33,7 @@ public class User implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getPassword() {
+	public String getPassword() { // TODO remove this thing later
 		return password;
 	}
 	public void setPassword(String password) {
