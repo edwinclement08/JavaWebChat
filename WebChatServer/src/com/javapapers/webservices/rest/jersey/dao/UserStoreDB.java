@@ -14,8 +14,8 @@ import java.util.Optional;
 import com.javapapers.webservices.rest.jersey.models.User;
 import com.javapapers.webservices.rest.jersey.util.DatabaseConnection;
 
-public class UserDao implements Dao<User> {
-	private static UserDao _instance = null;
+public class UserStoreDB implements UserStoreDao {
+	private static UserStoreDB _instance = null;
 	private boolean USE_SQL_DB = true;
 	private boolean DEBUG = true;
 	private ArrayList<User> users = new ArrayList<>();
@@ -30,14 +30,14 @@ public class UserDao implements Dao<User> {
 			System.out.println(String.format("|%s|%s| :: %s", className, methodName, message.toString()));
 	}
 
-	public static UserDao getInstance() {
+	public static UserStoreDB getInstance() {
 		if (_instance == null) {
-			_instance = new UserDao();
+			_instance = new UserStoreDB();
 		}
 		return _instance;
 	}
 
-	private UserDao() {
+	private UserStoreDB() {
 		if (USE_SQL_DB) {
 			db = DatabaseConnection.getDatabase();
 			dbConnection = db.getConnection();

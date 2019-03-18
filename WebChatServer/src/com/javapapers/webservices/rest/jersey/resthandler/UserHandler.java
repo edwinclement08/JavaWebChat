@@ -13,13 +13,13 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.javapapers.webservices.rest.jersey.dao.UserDao;
+import com.javapapers.webservices.rest.jersey.dao.UserStoreDB;
 import com.javapapers.webservices.rest.jersey.models.User;
 
 @Path("/user")
 @Singleton
 public class UserHandler {
-	public UserDao userDao;
+	public UserStoreDB userDao;
 	public static final boolean DEBUG = true;
 
 	private void debugPrint(Object message) {
@@ -31,7 +31,7 @@ public class UserHandler {
 
 	public UserHandler() {
 		System.out.println("UserHandler init");
-		userDao = UserDao.getInstance();
+		userDao = UserStoreDB.getInstance();
 	}
 
 	@GET

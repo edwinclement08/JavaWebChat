@@ -18,7 +18,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.javapapers.webservices.rest.jersey.dao.MessageStoreDB;
 import com.javapapers.webservices.rest.jersey.dao.MessageStoreDao;
-import com.javapapers.webservices.rest.jersey.dao.UserDao;
+import com.javapapers.webservices.rest.jersey.dao.UserStoreDB;
 import com.javapapers.webservices.rest.jersey.models.Message;
 import com.javapapers.webservices.rest.jersey.models.User;
 
@@ -30,7 +30,7 @@ public class MessageHandler {
 	public boolean DEBUG = true;
 
 	MessageStoreDao messageStoreDao;
-	UserDao userDao;
+	UserStoreDB userDao;
 
 	private void debugPrint(Object message) {
 		String className = this.getClass().getSimpleName();
@@ -41,7 +41,7 @@ public class MessageHandler {
 
 	public MessageHandler() {
 
-		userDao = UserDao.getInstance();
+		userDao = UserStoreDB.getInstance();
 		if (USE_SQL_DB) {
 			messageStoreDao = MessageStoreDB.getInstance();
 
