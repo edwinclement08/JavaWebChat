@@ -60,23 +60,18 @@ public class UserStoreDB implements UserStoreDao {
 					debugPrint("Failed in Table Creation.");
 				}
 			}
-
 			// create a few dummy values
 			User u1 = new User("John", "pass123");
 			User u2 = new User("Susan", "suzy");
-//			debugPrint(u1);
-//			debugPrint(u2);
+
 			save(u1);
 			save(u2);
 		}
-
 		if (!USE_SQL_DB) {
 			users.add(new User("John", "pass123"));
 			users.add(new User("Susan", "suzy"));
 		}
-
 		debugPrint("Initialization Complete");
-
 	}
 
 	@Override
@@ -109,6 +104,7 @@ public class UserStoreDB implements UserStoreDao {
 		}
 	}
 
+	@Override
 	public Optional<User> getByUserName(String userName) {
 		if (USE_SQL_DB) {
 			String getUserSQL = String.join("\n",
@@ -145,7 +141,8 @@ public class UserStoreDB implements UserStoreDao {
 
 	}
 
-	public Optional<User> getByUserOnject(User user) {
+	@Override
+	public Optional<User> getByUserObject(User user) {
 		return getByUserName(user.getName());
 	}
 
@@ -185,7 +182,7 @@ public class UserStoreDB implements UserStoreDao {
 		if (USE_SQL_DB) {
 
 			// check if user already exists
-			if (getByUserOnject(user).isPresent()) {
+			if (getByUserObject(user).isPresent()) {
 				// yes there is, use update
 				debugPrint("update user: " + user);
 
@@ -246,6 +243,7 @@ public class UserStoreDB implements UserStoreDao {
 		}
 	}
 
+	@Override
 	public boolean updateByUsername(String userName, String oldPassword, String[] params) {
 		if (USE_SQL_DB) {
 			Optional<User> u = getByUserName(userName);
