@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.util.Random;
 
 import com.javapapers.webservices.rest.jersey.util.XMLSerializable;
+import com.javapapers.webservices.rest.jersey.util.XMLTag;
 
 public class User implements XMLSerializable {
 	/**
@@ -12,7 +13,6 @@ public class User implements XMLSerializable {
 	 */
 
 	private static final long TIMEOUT_PERIOD_FOR_TOKEN = 60 * 10; // 10 minutes
-	private static final long serialVersionUID = 1L;
 
 	private String name;
 	private String password;
@@ -93,13 +93,13 @@ public class User implements XMLSerializable {
 	}
 
 	@Override
-	public String XMLDump() {
+	public XMLTag XMLDump() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void XMLLoad() {
+	public void XMLLoad(String dump) {
 		// TODO Auto-generated method stub
 
 	}
