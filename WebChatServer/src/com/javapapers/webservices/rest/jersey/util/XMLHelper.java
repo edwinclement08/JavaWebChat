@@ -2,7 +2,6 @@ package com.javapapers.webservices.rest.jersey.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Stack;
 
 class XMLTag {
 	String name;
@@ -76,8 +75,7 @@ class XMLTag {
 }
 
 class XMLParser {
-
-	static class ParseReturn {
+	class ParseReturn {
 		public int index;
 		public XMLTag tag;
 
@@ -87,8 +85,28 @@ class XMLParser {
 		}
 	}
 
-	public static ParseReturn parse(String dumps, Integer index, String parentName, String parameters) {
-//		System.out.println("parent name :" + parentName);
+	public boolean DEBUG = false;
+	private static XMLParser _instance = null;
+
+	private void debugPrint(Object message) {
+		String className = this.getClass().getSimpleName();
+		String methodName = new Throwable().getStackTrace()[1].getMethodName();
+		if (DEBUG)
+			System.out.println(String.format("|%s|%s| :: %s", className, methodName, message.toString()));
+	}
+
+	private XMLParser() {
+	}
+
+	public static XMLParser getInstance() {
+		if (_instance == null) {
+			_instance = new XMLParser();
+		}
+		return _instance;
+	}
+
+	public ParseReturn parse(String dumps, Integer index, String parentName, String parameters) {
+		debugPrint("parent name :" + parentName);
 		XMLTag tag = new XMLTag(parentName);
 
 		if (parameters.length() > 0) {
@@ -105,7 +123,6 @@ class XMLParser {
 		ArrayList<XMLTag> childArray = new ArrayList<XMLTag>();
 
 		boolean insideTag = false;
-		boolean startTag = false;
 
 		char c = dumps.charAt(index);
 
@@ -115,7 +132,7 @@ class XMLParser {
 				index++;
 				char ct = dumps.charAt(index);
 				if (ct == '/') { // end tag
-					startTag = false;
+
 					insideTag = true;
 					while (ct != '>') {
 
@@ -125,10 +142,10 @@ class XMLParser {
 					}
 
 					childArray.forEach((XMLTag xtag) -> tag.addChild(xtag));
-//					System.out.println("d: " + tag);
+					debugPrint("d: " + tag);
 					return new ParseReturn(index, tag);
 				} else { // start tag of subtag
-					startTag = true;
+
 					insideTag = true;
 
 					StringBuffer childTagName = new StringBuffer("");
@@ -140,7 +157,7 @@ class XMLParser {
 						c = dumps.charAt(index);
 
 					} // for tag name
-//					System.out.println("new tag: " + childTagName);
+					debugPrint("new tag: " + childTagName);
 					StringBuffer params = new StringBuffer("");
 					if (c == ' ') {
 						index++;
@@ -149,10 +166,10 @@ class XMLParser {
 							params.append(c);
 							index++;
 							c = dumps.charAt(index);
-						} // for tag params
+						} // for tag parameters
 					}
 
-//					System.out.println("--------params: " + params);
+					debugPrint("--------params: " + params);
 
 					insideTag = false;
 
@@ -167,24 +184,19 @@ class XMLParser {
 				// TODO add support for escape chars
 				if (!insideTag) {
 					StringBuffer content = new StringBuffer();
-					try {
-						if (c == '>')
-							index++;
+
+					if (c == '>')
+						index++;
+					c = dumps.charAt(index);
+					while (c != '<') {
+						content.append(c);
+						index++;
 						c = dumps.charAt(index);
-						while (c != '<') {
-							content.append(c);
-							index++;
-							c = dumps.charAt(index);
-						}
-						index--;
-
-						tag.setContent(content.toString());
-
-					} catch (Exception e) {
-						// TODO: handle exception
-//						System.out.println("dsds" + content);
-						e.printStackTrace();
 					}
+					index--;
+
+					tag.setContent(content.toString());
+
 				}
 
 			}
@@ -195,8 +207,8 @@ class XMLParser {
 		return new ParseReturn(index, tag);
 	}
 
-	public static XMLTag parse(String dumps) {
-		ParseReturn d = XMLParser.parse(dumps, 0, "root", "");
+	public XMLTag parse(String dumps) {
+		ParseReturn d = XMLParser.getInstance().parse(dumps, 0, "root", "");
 		XMLTag child = d.tag.children.get(0);
 		return child;
 
@@ -240,7 +252,7 @@ public class XMLHelper {
 
 		String dump = root.toString();
 
-		XMLTag result = XMLParser.parse(dump);
+		XMLTag result = XMLParser.getInstance().parse(dump);
 
 		// end of function
 
