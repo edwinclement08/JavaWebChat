@@ -103,110 +103,109 @@ class XMLParser {
 
 	}
 
-	public static XMLTag parse(String dump) {
-		XMLTag root = new XMLTag("temp");
-//		root.addChild(new XMLTag("temp")); // TODO remove this later
+	static class ParseReturn {
+		public int index;
+		public XMLTag tag;
 
-		Stack<XMLTag> parentTagStack = new Stack<XMLTag>();
-		Stack<XMLTag> childTagStack = new Stack<XMLTag>();
-		Stack<Stack<XMLTag>> stackframe = new Stack<Stack<XMLTag>>();
+		public ParseReturn(int index, XMLTag tag) {
+			this.index = index;
+			this.tag = tag;
+		}
+	}
 
-		int index = 0;
+	public static ParseReturn parse(String dumps, Integer index, String parentName, String parameters) {
+		System.out.println("parent name :" + parentName);
+		XMLTag tag = new XMLTag(parentName);
+
+		ArrayList<XMLTag> childArray = new ArrayList<XMLTag>();
+
 		boolean insideTag = false;
-		boolean isStartTag = false;
-		StringBuffer currentTagName = new StringBuffer();
-		XMLTag currentTag = new XMLTag("temp2");
+		boolean startTag = false;
 
-		StringBuffer currentTagContent = new StringBuffer();
+		char c = dumps.charAt(index);
 
-		while (index < dump.length()) {
-			char c = dump.charAt(index);
+		while (index < dumps.length()) {
+			c = dumps.charAt(index);
+			if (c == '<') {
+				index++;
+				char ct = dumps.charAt(index);
+				if (ct == '/') { // end tag
+					startTag = false;
+					insideTag = true;
+					while (ct != '>') {
 
-			switch (c) {
-			case '<':
-				insideTag = true;
-
-				index += 1;
-				c = dump.charAt(index);
-				currentTagName = new StringBuffer();
-
-				if (c == '/') {
-					isStartTag = false;
-					// terminating tag,
-					if (currentTagContent.length() > 0) {
-						System.out.println("The Content was " + currentTagContent);
-						currentTag.setContent(currentTagContent.toString());
-					} else {
-
-						while (!childTagStack.isEmpty()) {
-							currentTag.addChild(childTagStack.pop());
-						}
+						index += 1;
+						ct = dumps.charAt(index);
 
 					}
 
-				} else {
-					isStartTag = true;
-					// push current frame to stack
+					childArray.forEach((XMLTag xtag) -> tag.addChild(xtag));
+					System.out.println("d: " + tag);
+					return new ParseReturn(index, tag);
+				} else { // start tag of subtag
+					startTag = true;
+					insideTag = true;
 
-//					printFrames(stackframe);
-					stackframe.push(childTagStack);
-					// set new empty stack for current node
-					childTagStack = new Stack<XMLTag>();
+					StringBuffer childTagName = new StringBuffer("");
 
-				}
-				break;
-			case '>':
-				if (insideTag) {
-					insideTag = false;
-					if (isStartTag) {
-						// push tag into the stack
-						parentTagStack.push(currentTag);
-						currentTag = new XMLTag(currentTagName.toString());
-					} else {
-						// pop the top of stack
+					c = dumps.charAt(index);
+					while (c != ' ' && c != '>') {
+						childTagName.append(c);
+						index++;
+						c = dumps.charAt(index);
 
-						childTagStack = stackframe.pop(); // get the parents child stack
-						childTagStack.push(currentTag); // add self to parent child list
-						currentTag = parentTagStack.pop(); // set parent to be the current tag
-
-						currentTagContent = new StringBuffer();
-
-						System.out.println(currentTagName);
-					}
-
-				} else {
-					System.out.println("Some Issue is there :" + currentTagName);
-				}
-				break;
-			default:
-				if (insideTag) {
+					} // for tag name
+					System.out.println("new tag: " + childTagName);
+					StringBuffer params = new StringBuffer("");
 					if (c == ' ') {
-						// parameters start now
-						while (index < dump.length()) {
-							char ct = dump.charAt(index);
-							if (ct == '>')
-								break;
-							System.out.print(ct);
-
+						while (c != ' ' && c != '>') {
+							params.append(c);
 							index++;
-						}
-						System.out.println();
-
-						index--;
+							c = dumps.charAt(index);
+						} // for tag params
 					}
-					currentTagName.append(c);
-				} else {
-					// the content
-					currentTagContent.append(c);
 
+					insideTag = false;
+
+					ParseReturn d = parse(dumps, index, childTagName.toString(), params.toString());
+					childArray.add(d.tag);
+					index = d.index;
+
+				}
+
+			} else {
+				// content of tag
+				// TODO add support for escape chars
+				if (!insideTag) {
+					StringBuffer content = new StringBuffer();
+					try {
+						while (c != '<') {
+							content.append(c);
+							index++;
+							c = dumps.charAt(index);
+						}
+						tag.setContent(content.toString());
+
+					} catch (Exception e) {
+						// TODO: handle exception
+						System.out.println("dsds" + content);
+						e.printStackTrace();
+					}
 				}
 
 			}
-
-			index += 1;
+			index++;
 		}
+		childArray.forEach((XMLTag xtag) -> tag.addChild(xtag));
 
-		return currentTag; // (XMLTag) root.get(0);
+		return new ParseReturn(index, tag);
+	}
+
+	public static XMLTag parse(String dumps) {
+		ParseReturn d = XMLParser.parse(dumps, 0, "root", "");
+		XMLTag child = d.tag.children.get(0);
+		return child;
+
 	}
 
 }
@@ -241,11 +240,12 @@ public class XMLHelper {
 		root.addChild(body);
 		body.addChild(div);
 		body.addChild(div2);
-		System.out.println("--START--");
 		System.out.println(root);
 
 		String dump = root.toString();
+		System.out.println("--START--");
 
+		Integer f = 0;
 		System.out.println(XMLParser.parse(dump));
 
 	}
