@@ -69,39 +69,13 @@ class XMLTag {
 			}
 		}
 
-		totalDump.append(String.format("</%s>", name, parameterString));
+		totalDump.append(String.format("</%s>", name));
 		return totalDump.toString();
 	};
 
 }
 
 class XMLParser {
-	public static void p(char s) {
-		System.out.println(s);
-	}
-
-	public static void p(String s) {
-		System.out.println(s);
-	}
-
-	public static void printStack(Stack<XMLTag> childTagStack) {
-		System.out.print("| STACK :: ");
-		Object[] data = childTagStack.toArray();
-		for (int i = 0; i < data.length; i++) {
-			System.out.print(String.format(" ,%s", ((XMLTag) data[i]).toString()));
-		}
-		System.out.print(" END");
-	}
-
-	public static void printFrames(Stack<Stack<XMLTag>> stackframe) {
-		System.out.print("FRAME :: ");
-		Object[] data = stackframe.toArray();
-		for (int i = 0; i < data.length; i++) {
-			printStack((Stack<XMLTag>) data[i]);
-		}
-		System.out.println(" FEND");
-
-	}
 
 	static class ParseReturn {
 		public int index;
@@ -114,8 +88,19 @@ class XMLParser {
 	}
 
 	public static ParseReturn parse(String dumps, Integer index, String parentName, String parameters) {
-		System.out.println("parent name :" + parentName);
+//		System.out.println("parent name :" + parentName);
 		XMLTag tag = new XMLTag(parentName);
+
+		if (parameters.length() > 0) {
+
+			String[] paramList = parameters.split(" ");
+
+			for (String item : paramList) {
+				String[] individual = item.split("=");
+
+				tag.setParameter(individual[0], individual[1].replace('\'', ' ').trim());
+			}
+		}
 
 		ArrayList<XMLTag> childArray = new ArrayList<XMLTag>();
 
@@ -140,7 +125,7 @@ class XMLParser {
 					}
 
 					childArray.forEach((XMLTag xtag) -> tag.addChild(xtag));
-					System.out.println("d: " + tag);
+//					System.out.println("d: " + tag);
 					return new ParseReturn(index, tag);
 				} else { // start tag of subtag
 					startTag = true;
@@ -149,21 +134,25 @@ class XMLParser {
 					StringBuffer childTagName = new StringBuffer("");
 
 					c = dumps.charAt(index);
-					while (c != ' ' && c != '>') {
+					while (c != '>' && c != ' ') {
 						childTagName.append(c);
 						index++;
 						c = dumps.charAt(index);
 
 					} // for tag name
-					System.out.println("new tag: " + childTagName);
+//					System.out.println("new tag: " + childTagName);
 					StringBuffer params = new StringBuffer("");
 					if (c == ' ') {
-						while (c != ' ' && c != '>') {
+						index++;
+						c = dumps.charAt(index);
+						while (c != '>') {
 							params.append(c);
 							index++;
 							c = dumps.charAt(index);
 						} // for tag params
 					}
+
+//					System.out.println("--------params: " + params);
 
 					insideTag = false;
 
@@ -179,16 +168,21 @@ class XMLParser {
 				if (!insideTag) {
 					StringBuffer content = new StringBuffer();
 					try {
+						if (c == '>')
+							index++;
+						c = dumps.charAt(index);
 						while (c != '<') {
 							content.append(c);
 							index++;
 							c = dumps.charAt(index);
 						}
+						index--;
+
 						tag.setContent(content.toString());
 
 					} catch (Exception e) {
 						// TODO: handle exception
-						System.out.println("dsds" + content);
+//						System.out.println("dsds" + content);
 						e.printStackTrace();
 					}
 				}
@@ -223,6 +217,9 @@ public class XMLHelper {
 	}
 
 	public static void main(String[] args) {
+		long start = System.currentTimeMillis();
+
+		// start of function
 
 		XMLTag root = new XMLTag("html");
 		XMLTag head = new XMLTag("head");
@@ -230,8 +227,8 @@ public class XMLHelper {
 		XMLTag div = new XMLTag("div");
 		XMLTag div2 = new XMLTag("div");
 
-		body.setParameter("id", "contentPage");
-		body.setParameter("class", "indexPage");
+		root.setParameter("id", "contentPage");
+		root.setParameter("class", "indexPage");
 
 		div.setContent("Hello World");
 		div2.setContent("Trial2");
@@ -240,13 +237,19 @@ public class XMLHelper {
 		root.addChild(body);
 		body.addChild(div);
 		body.addChild(div2);
-		System.out.println(root);
 
 		String dump = root.toString();
-		System.out.println("--START--");
 
-		Integer f = 0;
-		System.out.println(XMLParser.parse(dump));
+		XMLTag result = XMLParser.parse(dump);
+
+		// end of function
+
+		// ending time
+		long end = System.currentTimeMillis();
+		System.out.println("dump and load and dump xml takes " + (end - start) + "ms");
+		System.out.println(dump);
+		System.out.println("--START--");
+		System.out.println(result);
 
 	}
 
