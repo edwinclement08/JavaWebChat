@@ -39,9 +39,42 @@ public class XMLTag {
 		this.children.add(child);
 	}
 
-	// TODO
-	public void queryChildrenById(String name) {
+	public String getParameter(String name) {
+		if (parameters.containsKey(name)) {
+			return parameters.get(name);
+		} else {
+			return "";
+		}
+	}
 
+	public String getName() {
+		return name;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void addLeafChild(String tagName, String content) {
+		XMLTag tag = new XMLTag(tagName);
+		tag.setContent(content);
+		addChild(tag);
+	}
+
+	public ArrayList<XMLTag> queryByTag(String name) {
+		ArrayList<XMLTag> queryResult = new ArrayList<XMLTag>();
+		XMLTag temp;
+		for (int i = 0; i < children.size(); i++) {
+			temp = children.get(i);
+			if (temp.getName().equals(name)) { // have same tag name
+				queryResult.add(temp);
+			}
+		}
+		return queryResult;
+	}
+
+	public XMLTag queryByTagFirst(String name) {
+		return queryByTag(name).get(0);
 	}
 
 	public Object get(int i) {
@@ -74,6 +107,15 @@ public class XMLTag {
 
 	public static XMLTag fromString(String dumps) {
 		return XMLParser.getInstance().parse(dumps);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		XMLTag other = (XMLTag) obj;
+		if (other.toString().equals(toString()))
+			return true;
+		else
+			return false;
 	}
 
 }
