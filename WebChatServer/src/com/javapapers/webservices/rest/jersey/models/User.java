@@ -13,6 +13,7 @@ public class User implements XMLSerializable {
 	 */
 
 	private static final long TIMEOUT_PERIOD_FOR_TOKEN = 60 * 10; // 10 minutes
+	public static final int TOKEN_LENGTH = 25;
 
 	private String name;
 	private String password;
@@ -56,7 +57,7 @@ public class User implements XMLSerializable {
 		return String.format("{Username: %s, Password: %s, token:%s}", name, password, token);
 	}
 
-	protected String generateRandomString(int length) {
+	public static String generateRandomString(int length) {
 		Random random = new SecureRandom();
 		String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
 
@@ -94,14 +95,21 @@ public class User implements XMLSerializable {
 
 	@Override
 	public XMLTag XMLDump() {
-		// TODO Auto-generated method stub
-		return null;
+		XMLTag tag = new XMLTag("user");
+		tag.addLeafChild("name", getName());
+		tag.addLeafChild("password", getPassword());
+		tag.addLeafChild("token", getToken());
+		tag.addLeafChild("tokenCreationTime", String.valueOf(gettokenCreationTime()));
+		return tag;
 	}
 
 	@Override
-	public void XMLLoad(String dump) {
-		// TODO Auto-generated method stub
-
+	public void XMLLoad(String dumps) {
+		XMLTag tag = XMLTag.fromString(dumps);
+		name = tag.queryByTagFirst("name").getContent();
+		password = tag.queryByTagFirst("password").getContent();
+		token = tag.queryByTagFirst("token").getContent();
+		tokenCreationTime = Long.parseLong(tag.queryByTagFirst("tokenCreationTime").getContent());
 	}
 
 }
