@@ -11,14 +11,14 @@ public class XMLTag {
 	String content;
 	ArrayList<XMLTag> children = null;
 
-	XMLTag(String name) {
+	public XMLTag(String name) {
 		this.name = name;
 		parameters = new HashMap<String, String>();
 		content = "";
 		children = new ArrayList<XMLTag>();
 	}
 
-	XMLTag(String name, HashMap<String, String> parameters) {
+	public XMLTag(String name, HashMap<String, String> parameters) {
 		this.name = name;
 		this.parameters = parameters;
 		content = "";
@@ -109,7 +109,7 @@ class XMLParser {
 		return _instance;
 	}
 
-	public ParseReturn parse(String dumps, Integer index, String parentName, String parameters) {
+	ParseReturn parse(String dumps, Integer index, String parentName, String parameters) {
 		debugPrint("parent name :" + parentName);
 		XMLTag tag = new XMLTag(parentName);
 
