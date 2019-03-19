@@ -1,6 +1,8 @@
 package com.javapapers.webservices.rest.jersey.models;
 
-public class Message {
+import com.javapapers.webservices.rest.jersey.util.XMLSerializable;
+
+public class Message implements XMLSerializable {
 	long id;
 
 	String sender;
@@ -67,6 +69,18 @@ public class Message {
 		String fs = "{'message': '%s','receiver': '%s','sender': '%s','timeSent': '%s','transferred': '%b'}";
 		fs = fs.replace("'", "\"");
 		return String.format(fs, message, receiver, sender, timeSent, transferred);
+	}
+
+	@Override
+	public String XMLDump() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void XMLLoad() {
+		// TODO Auto-generated method stub
+
 	}
 
 }

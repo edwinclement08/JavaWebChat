@@ -1,11 +1,12 @@
 package com.javapapers.webservices.rest.jersey.models;
 
-import java.io.Serializable;
 import java.security.SecureRandom;
 import java.time.Instant;
 import java.util.Random;
 
-public class User implements Serializable {
+import com.javapapers.webservices.rest.jersey.util.XMLSerializable;
+
+public class User implements XMLSerializable {
 	/**
 	 * 
 	 */
@@ -89,6 +90,18 @@ public class User implements Serializable {
 				return true;
 		}
 		return false;
+	}
+
+	@Override
+	public String XMLDump() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void XMLLoad() {
+		// TODO Auto-generated method stub
+
 	}
 
 }
