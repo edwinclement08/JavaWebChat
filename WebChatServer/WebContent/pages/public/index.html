@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0" name="viewport"/>
+    <title> Chatty</title>
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta content="yes" name="mobile-web-app-capable"/>
+    <link href="images/android-desktop.png" rel="icon" sizes="192x192"/>
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+    <meta content="Material Design Lite" name="apple-mobile-web-app-title"/>
+    <link href="images/ios-desktop.png" rel="apple-touch-icon-precomposed"/>
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta content="images/touch/ms-touch-icon-144x144-precomposed.png" name="msapplication-TileImage"/>
+    <meta content="#3372DF" name="msapplication-TileColor"/>
+    <link href="images/favicon.ico" rel="shortcut icon"/>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en"
+          rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link href="css/material.cyan-light_blue.min.css" rel="stylesheet"/>
+    <link href="css/styles.css" rel="stylesheet"/>
+    <style>
+        #view-source {
+            position: fixed;
+            display: block;
+            right: 0;
+            bottom: 0;
+            margin-right: 40px;
+            margin-bottom: 40px;
+            z-index: 900;
+        }
+    </style>
+</head>
+<body>
+<div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+    <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600"
+            id="headerPlugPoint">
+        <!--  PLUG POINT -->
+    </header>
+    <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+        <div id="sidebarPlugPoint">
+            <!--  PLUG POINT -->
+        </div>
+
+
+    </div>
+    <main class="mdl-layout__content  mdl-color--grey-100">
+        <div class="mdl-grid " id="homePagePlugPoint">
+
+
+        </div>
+
+    </main>
+</div>
+
+<script src="js/material.min.js"></script>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/main.js"></script>
+<noscript>You need to enable JavaScript to run this app.</noscript>
+<div id="loginDialog"></div>
+<div id="mainroot"></div>
+
+<div id="root"></div>
+
+
+</html>

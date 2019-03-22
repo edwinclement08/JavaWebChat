@@ -1,0 +1,62 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.chat-person-card {
+    height: inherit !important;
+    min-height: inherit !important;
+}
+
+.chat-person-card.mdl-card {
+    width: 256px;
+    height: 256px;
+    background: #3E4EB8;
+}
+
+.chat-person-card > .mdl-card__actions {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.chat-person-card > .mdl-card__title {
+    align-items: flex-start;
+}
+
+.chat-person-card > .mdl-card__title > h4 {
+    margin-top: 0;
+}
+
+.chat-person-card > .mdl-card__actions {
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+.chat-person-card > .mdl-card__actions > .material-icons {
+    padding-right: 10px;
+}
+
+.chat-person-card > .mdl-card__title,
+.chat-person-card > .mdl-card__actions,
+.chat-person-card > .mdl-card__actions > .mdl-button {
+    color: #fff;
+}
+
+.chat-person-card > .previous-chat-details {
+    color: white;
+}
+
+.chat-person-card > .mdl-card__title {
+    border-bottom: #3aa55f thin solid;
+    font-size: 1.5em;
+}

@@ -4,3 +4,7 @@ mysql-data/
 takeV2/build/
 
 takeV2/
+
+WebChatServer/tempMessageFileTest\.message\.xml
+
+WebChatServer/tempUserFileTest\.user\.xml
