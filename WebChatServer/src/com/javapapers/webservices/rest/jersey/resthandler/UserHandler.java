@@ -5,7 +5,6 @@ import java.util.NoSuchElementException;
 
 import javax.inject.Singleton;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -15,6 +14,8 @@ import javax.ws.rs.core.MediaType;
 
 import com.javapapers.webservices.rest.jersey.dao.UserStoreDB;
 import com.javapapers.webservices.rest.jersey.models.User;
+import com.javapapers.webservices.rest.jersey.resthandler.jsonholder.UserChangePasswordHolder;
+import com.javapapers.webservices.rest.jersey.resthandler.jsonholder.UserHolder;
 
 @Path("/user")
 @Singleton
@@ -84,57 +85,60 @@ public class UserHandler {
 	@POST
 	@Path("/register")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public String registerUser(@FormParam("username") String userName, @FormParam("password") String password) {
-		User newUser = new User(userName, password);
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String registerUser(UserHolder regUser) {
+		User newUser = new User(regUser.getUsername(), regUser.getPassword());
 		String token = newUser.createToken();
-		boolean status = userDao.save(newUser);
+		boolean status = userDao.add(newUser);
 		String jsonString = "{'username': '%s', 'token':'%s', 'status': '%b'}".replace("'", "\"");
-		return String.format(jsonString, userName, token, status);
-
+		return String.format(jsonString, regUser.getUsername(), token, status);
 	}
 
 	@POST
 	@Path("/login")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String loginUser(@FormParam("username") String userName, @FormParam("password") String password) {
-		String responseString = "{'status': '%b', 'token':'%s', 'message':'%s' }".replace("'", "\"");
-		User user = new User("-", "-");
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String loginUser(UserHolder newUser) {
+		String responseString = "{'status': '%b', 'user':'%s' ,'token':'%s', 'message':'%s' }".replace("'", "\"");
+		User user = new User("", "");
 		try {
-			user = userDao.getByUserName(userName).get();
-			String token = user.createToken();
-			debugPrint(user);
-			userDao.save(user);
-			debugPrint("saved");
-			return String.format(responseString, true, token, "Successful Login");
+			user = userDao.getByUserName(newUser.getUsername()).get();
+			if (user.getPassword().equals(newUser.getPassword())) {
+				debugPrint(user);
+				String token = user.createToken();
+				userDao.save(user);
+				debugPrint("saved");
+				return String.format(responseString, true, newUser.getUsername(), token, "Successful Login");
+			} else {
+				return String.format(responseString, false, "", "", "Wrong Password");
+			}
 		} catch (NoSuchElementException e) {
-			return String.format(responseString, false, "", "No Such User");
+			return String.format(responseString, false, "", "", "No Such User");
 		}
 	}
 
 	@POST
 	@Path("/delete/")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String deleteUser(@FormParam("username") String userName, @FormParam("password") String password) {
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String deleteUser(UserHolder newUser) {
 		String responseString = "{'status': '%b', 'message':'%s' }".replace("'", "\"");
 
-		boolean status = userDao.deleteByUsername(userName, password);
+		boolean status = userDao.deleteByUsername(newUser.getUsername(), newUser.getPassword());
 		if (status)
 			return String.format(responseString, status, "Successful Deletion");
 		else
 			return String.format(responseString, false, "No Such User");
-
 	}
 
 	@POST
 	@Path("/update")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public String updateUser(@FormParam("username") String userName, @FormParam("oldpassword") String oldPassword,
-			@FormParam("newpassword") String newPassword) {
-		boolean status = userDao.updateByUsername(userName, oldPassword, new String[] { userName, newPassword });
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String updateUser(UserChangePasswordHolder userDetails) {
+		boolean status = userDao.updateByUsername(userDetails.getUsername(), userDetails.getOldpassword(),
+				new String[] { userDetails.getUsername(), userDetails.getNewpassword() });
 		String jsonString = "{'username': '%s', 'status': '%b'}".replace("'", "\"");
-		return String.format(jsonString, userName, status);
-
+		return String.format(jsonString, userDetails.getUsername(), status);
 	}
 }

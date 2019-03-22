@@ -7,7 +7,6 @@ import java.util.Optional;
 
 import javax.inject.Singleton;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -21,6 +20,8 @@ import com.javapapers.webservices.rest.jersey.dao.MessageStoreDao;
 import com.javapapers.webservices.rest.jersey.dao.UserStoreDB;
 import com.javapapers.webservices.rest.jersey.models.Message;
 import com.javapapers.webservices.rest.jersey.models.User;
+import com.javapapers.webservices.rest.jersey.resthandler.jsonholder.MessageTempHolder;
+import com.javapapers.webservices.rest.jersey.resthandler.jsonholder.UserAuthHolder;
 
 @Path("/message")
 @Singleton
@@ -40,37 +41,32 @@ public class MessageHandler {
 	}
 
 	public MessageHandler() {
-
 		userDao = UserStoreDB.getInstance();
 		if (USE_SQL_DB) {
 			messageStoreDao = MessageStoreDB.getInstance();
-
 		}
 		if (!USE_SQL_DB || messageStoreDao == null) {
 			// Use other TYPE of store TODO
-
 		}
 		debugPrint("Initialization Complete");
-
 	}
 
 	@POST
 	@Path("sendMessage")
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public String sendMessage(@FormParam("username") String userName, @FormParam("token") String token,
-			@FormParam("receiver") String receiver, @FormParam("content") String content) {
-		Message message = new Message().setMessage(content).setReceiver(receiver).setSender(userName)
-				.setTimeSent(Instant.now().getEpochSecond());
-		Optional<User> u = userDao.getByUserName(userName);
+	public String sendMessage(MessageTempHolder m) {
+		Message message = new Message().setMessage(m.getContent()).setReceiver(m.getReceiver())
+				.setSender(m.getUsername()).setTimeSent(Instant.now().getEpochSecond());
+		Optional<User> u = userDao.getByUserName(m.getUsername());
 		if (!u.isPresent()) {
-			debugPrint("No User found with name :" + userName);
+			debugPrint("No User found with name :" + m.getUsername());
 			return "{'status':'false', 'message':'No Such User'}".replace("'", "\"");
 		} else {
 			User user = u.get();
-			debugPrint("Got that User:" + user + " || tokenReceived: " + token);
+			debugPrint("Got that User:" + user + " || tokenReceived: " + m.getToken());
 
-			if (user.verifyToken(token)) {
+			if (user.verifyToken(m.getToken())) {
 				debugPrint("User Verified");
 				boolean status = messageStoreDao.sendMessage(message);
 				if (status) {
@@ -90,21 +86,19 @@ public class MessageHandler {
 
 	@POST
 	@Path("getAllMessages")
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public HashMap<String, Object> getAllMessage(@FormParam("username") String userName,
-			@FormParam("token") String token) {
-		return getMessages(userName, token, true);
+	public HashMap<String, Object> getAllMessage(UserAuthHolder auth) {
+		return getMessages(auth.getUsername(), auth.getToken(), true);
 
 	}
 
 	@POST
 	@Path("getNewMessages")
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public HashMap<String, Object> getNewMessage(@FormParam("username") String userName,
-			@FormParam("token") String token) {
-		return getMessages(userName, token, false);
+	public HashMap<String, Object> getNewMessage(UserAuthHolder auth) {
+		return getMessages(auth.getUsername(), auth.getToken(), false);
 	}
 
 	/**

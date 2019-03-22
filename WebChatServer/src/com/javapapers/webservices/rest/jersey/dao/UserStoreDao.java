@@ -16,6 +16,8 @@ public interface UserStoreDao {
 
 	boolean save(User t);
 
+	boolean add(User t);
+
 	boolean update(User t, String[] params);
 
 	public boolean updateByUsername(String userName, String oldPassword, String[] params);

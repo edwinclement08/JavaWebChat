@@ -244,6 +244,47 @@ public class UserStoreDB implements UserStoreDao {
 	}
 
 	@Override
+	public boolean add(User user) {
+		if (USE_SQL_DB) {
+			// check if user already exists
+			if (!getByUserObject(user).isPresent()) {
+				// create a record
+				String UserAddSQL = "INSERT INTO UserDatabase (username, password,token,tokenCreationTime) VALUES (?,?,?,?);";
+				try {
+					PreparedStatement ps = dbConnection.prepareStatement(UserAddSQL);
+					ps.setString(1, user.getName());
+					ps.setString(2, user.getPassword());
+					ps.setString(3, user.getToken());
+					ps.setLong(4, user.gettokenCreationTime());
+
+					int result = ps.executeUpdate();
+
+					if (result == 1) {
+						return true;
+					} else {
+						return false;
+					}
+				} catch (SQLIntegrityConstraintViolationException e) {
+					debugPrint("User already exist in DB. ");
+				} catch (SQLException e) {
+					e.printStackTrace();
+					debugPrint("Failed in adding mock Usersnb.");
+				}
+				return false;
+			} else {
+				debugPrint("User Already Exists.");
+
+				return false;
+			}
+		} else
+
+		{
+			users.add(user);
+			return true;
+		}
+	}
+
+	@Override
 	public boolean updateByUsername(String userName, String oldPassword, String[] params) {
 		if (USE_SQL_DB) {
 			Optional<User> u = getByUserName(userName);
@@ -255,6 +296,7 @@ public class UserStoreDB implements UserStoreDao {
 
 			String retreivedPassword = u.get().getPassword();
 			if (!retreivedPassword.equals(oldPassword)) {
+				debugPrint("Password Not Matching ::" + retreivedPassword + ":" + oldPassword);
 				return false;
 			}
 
@@ -262,9 +304,12 @@ public class UserStoreDB implements UserStoreDao {
 			try {
 				PreparedStatement ps = dbConnection.prepareStatement(UserAddSQL);
 				try {
+					debugPrint(params[0] + ":" + params[1]);
+
 					ps.setString(2, Objects.requireNonNull(params[0], "Name cannot be null"));
 					ps.setString(1, Objects.requireNonNull(params[1], "password cannot be null"));
 				} catch (NullPointerException e) {
+					debugPrint("user/pass is null");
 					return false;
 				}
 				int result = ps.executeUpdate();
