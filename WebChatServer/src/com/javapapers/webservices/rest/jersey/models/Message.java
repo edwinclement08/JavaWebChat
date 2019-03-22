@@ -5,6 +5,7 @@ import com.javapapers.webservices.rest.jersey.util.XMLTag;
 
 public class Message implements XMLSerializable {
 	long id;
+	public static final boolean DEBUG = false;
 
 	String sender;
 	String receiver;
@@ -91,6 +92,26 @@ public class Message implements XMLSerializable {
 		sender = tag.queryByTagFirst("sender").getContent();
 		timeSent = Long.parseLong(tag.queryByTagFirst("timeSent").getContent());
 		transferred = Boolean.parseBoolean(tag.queryByTagFirst("transferred").getContent());
+	}
+
+	@Override
+	public boolean XMLDumpToFile(String fileName) {
+		return XMLDump().dumpToFile(fileName);
+	}
+
+	@Override
+	public boolean XMLLoadFromFile(String fileName) {
+		XMLTag tag = XMLTag.loadFromFile(fileName);
+		if (DEBUG)
+			System.out.println("Tag Data: " + tag.toString());
+		boolean status;
+		if (tag.getName().equals("_error")) {
+			status = false;
+		} else {
+			status = true;
+		}
+		XMLLoad(tag.toString());
+		return status;
 	}
 
 }

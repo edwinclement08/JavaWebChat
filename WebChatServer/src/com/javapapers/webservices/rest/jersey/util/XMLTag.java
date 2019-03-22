@@ -1,9 +1,15 @@
 package com.javapapers.webservices.rest.jersey.util;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class XMLTag {
+	public static final boolean DEBUG = false;
+
 	String name;
 	HashMap<String, String> parameters;
 
@@ -118,6 +124,44 @@ public class XMLTag {
 			return false;
 	}
 
+	public boolean dumpToFile(String fileName) {
+		try {
+			FileWriter writer = new FileWriter(fileName, false);
+			String thisData = this.toString();
+			writer.write(thisData);
+			writer.close();
+			return true;
+		} catch (IOException e) {
+			System.out.println("Errored out in writing to file : " + fileName + "| the tag|" + this);
+			e.printStackTrace();
+			return false;
+
+		}
+	}
+
+	public static XMLTag loadFromFile(String fileName) {
+		try {
+			FileReader reader = new FileReader(fileName);
+			BufferedReader bufferedReader = new BufferedReader(reader);
+
+			String line;
+			StringBuffer fileData = new StringBuffer();
+			while ((line = bufferedReader.readLine()) != null) {
+				fileData.append(line);
+			}
+			reader.close();
+
+			if (DEBUG)
+				System.out.println("FileData: " + fileData.toString());
+
+			return fromString(fileData.toString());
+		} catch (IOException e) {
+			System.out.println("Errored out in reading from file : " + fileName);
+
+			e.printStackTrace();
+			return new XMLTag("_error");
+		}
+	}
 }
 
 class XMLParser {

@@ -14,6 +14,7 @@ public class User implements XMLSerializable {
 
 	private static final long TIMEOUT_PERIOD_FOR_TOKEN = 60 * 10; // 10 minutes
 	public static final int TOKEN_LENGTH = 25;
+	public static final boolean DEBUG = false;
 
 	private String name;
 	private String password;
@@ -110,6 +111,28 @@ public class User implements XMLSerializable {
 		password = tag.queryByTagFirst("password").getContent();
 		token = tag.queryByTagFirst("token").getContent();
 		tokenCreationTime = Long.parseLong(tag.queryByTagFirst("tokenCreationTime").getContent());
+	}
+
+	@Override
+	public boolean XMLDumpToFile(String fileName) {
+		return XMLDump().dumpToFile(fileName);
+
+	}
+
+	@Override
+	public boolean XMLLoadFromFile(String fileName) {
+		XMLTag tag = XMLTag.loadFromFile(fileName);
+		if (DEBUG)
+			System.out.println("Tag Data: " + tag.toString());
+		boolean status;
+		if (tag.getName().equals("_error")) {
+			status = false;
+		} else {
+			status = true;
+		}
+		XMLLoad(tag.toString());
+		return status;
+
 	}
 
 }

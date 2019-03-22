@@ -2,6 +2,7 @@ package com.javapapers.webservices.rest.jersey.test.modules;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
 import java.time.Instant;
 
 import org.junit.Test;
@@ -55,6 +56,38 @@ public class MessageXML {
 		assertEquals("Susan", receiver);
 		assertEquals(currentTimeEpoch, timeSent);
 
+	}
+
+	@Test
+	public void testFile() {
+		long currentTimeEpoch = Instant.now().getEpochSecond();
+
+		Message message = new Message();
+		message.setId(1);
+		message.setMessage("Message Test 101");
+		message.setSender("John");
+		message.setReceiver("Susan");
+		message.setTimeSent(currentTimeEpoch);
+
+		String messageString = message.toString();
+
+		String testFileName = "tempMessageFileTest.message.xml";
+		// if file exists, delete
+		File xx = new File(testFileName);
+		if (xx.exists()) {
+			xx.delete();
+		}
+
+		boolean XMLDumpToFileStatus = message.XMLDumpToFile(testFileName);
+
+		Message newMessage = new Message();
+		boolean XMLLoadToFileStatus = newMessage.XMLLoadFromFile(testFileName);
+
+		String loadedMessageString = newMessage.toString();
+
+		assertEquals(XMLDumpToFileStatus, true);
+		assertEquals(XMLLoadToFileStatus, true);
+		assertEquals(messageString, loadedMessageString);
 	}
 
 }

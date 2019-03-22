@@ -2,6 +2,7 @@ package com.javapapers.webservices.rest.jersey.test.modules;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
 import java.time.Instant;
 
 import org.junit.Test;
@@ -49,5 +50,31 @@ public class UserXML {
 		assertEquals(genToken, token);
 		assertEquals(currentTimeEpoch, tokenCreationTime);
 
+	}
+
+	@Test
+	public void testFile() {
+		long currentTimeEpoch = Instant.now().getEpochSecond();
+		String token = User.generateRandomString(User.TOKEN_LENGTH);
+		User user = new User("John", "test123", token, currentTimeEpoch);
+		String userString = user.toString();
+
+		String testFileName = "tempUserFileTest.user.xml";
+		// if file exists, delete
+		File xx = new File(testFileName);
+		if (xx.exists()) {
+			xx.delete();
+		}
+
+		boolean XMLDumpToFileStatus = user.XMLDumpToFile(testFileName);
+
+		User newUser = new User("", "");
+		boolean XMLLoadToFileStatus = newUser.XMLLoadFromFile(testFileName);
+
+		String loadedUserString = newUser.toString();
+
+		assertEquals(XMLDumpToFileStatus, true);
+		assertEquals(XMLLoadToFileStatus, true);
+		assertEquals(userString, loadedUserString);
 	}
 }
