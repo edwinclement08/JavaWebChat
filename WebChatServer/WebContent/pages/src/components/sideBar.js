@@ -1,7 +1,7 @@
 import React from "react";
 import {displayLoginDialog, loginVerify, signupUser, signoutUser} from "../actions";
 import {connect} from "react-redux";
-
+import "./sideBar.css";
 
 class SideBar extends React.Component {
   constructor(props) {

@@ -101,10 +101,49 @@ public class MessageStoreDB extends MessageStoreDao {
 		return getMessages(user, false);
 	}
 
+	@Override
+	public ArrayList<Message> peekMessage(User user, int count) {
+		String peekMessagesSQL = String.join("\n",
+				"SELECT * FROM (SELECT id, sender, receiver, message, timeSent, transferred",
+				" from MessageDatabase where receiver='%s' or sender='%s'",
+				" ORDER BY  id DESC LIMIT  %d ) sdf order by id;");
+		peekMessagesSQL = String.format(peekMessagesSQL, user.getName(), user.getName(), count);
+
+		debugPrint(peekMessagesSQL);
+
+		ArrayList<Message> resultListOfMessages = new ArrayList<Message>();
+		try {
+			Statement ps = dbConnection.createStatement();
+			ResultSet rs = ps.executeQuery(peekMessagesSQL);
+
+			while (rs.next()) {
+				long id = rs.getLong("id");
+
+				String sender = rs.getString("sender");
+				String receiver = rs.getString("receiver");
+				String message = rs.getString("message");
+				long timeSent = rs.getLong("timeSent");
+				boolean transferred = rs.getBoolean("transferred");
+
+				Message receivedMessage = new Message();
+				receivedMessage.setId(id).setSender(sender).setReceiver(receiver).setMessage(message)
+						.setTimeSent(timeSent).setTransferred(transferred);
+				resultListOfMessages.add(receivedMessage);
+				debugPrint(receivedMessage);
+			}
+			debugPrint("peeked all Messages for user:" + user.getName());
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			debugPrint("Failed in executing SQL(peek messages).");
+		}
+		return resultListOfMessages;
+	}
+
 	private ArrayList<Message> getMessages(User user, boolean allMessages) {
 		String getAllMessagesSQL = String.join("\n", "SELECT id, sender, receiver, message, timeSent, transferred",
-				" from MessageDatabase where receiver='%s'");
-		getAllMessagesSQL = String.format(getAllMessagesSQL, user.getName());
+				" from MessageDatabase where (receiver='%s' or sender='%s') ");
+		getAllMessagesSQL = String.format(getAllMessagesSQL, user.getName(), user.getName());
 		if (!allMessages)
 			getAllMessagesSQL += "and transferred=0";
 		debugPrint(getAllMessagesSQL);
@@ -123,16 +162,17 @@ public class MessageStoreDB extends MessageStoreDao {
 				String receiver = rs.getString("receiver");
 				String message = rs.getString("message");
 				long timeSent = rs.getLong("timeSent");
+				boolean transferred = rs.getBoolean("transferred");
 
 				Message receivedMessage = new Message();
 				receivedMessage.setId(id).setSender(sender).setReceiver(receiver).setMessage(message)
-						.setTimeSent(timeSent).setTransferred(true);
+						.setTimeSent(timeSent).setTransferred(transferred);
 				resultListOfMessages.add(receivedMessage);
 				debugPrint(receivedMessage);
 			}
 			debugPrint("Retrieved all Messages for user:" + user.getName());
 
-			updateTransferredStatus(listOfAllRecvMessageId);
+			updateTransferredStatus(user.getName(), listOfAllRecvMessageId);
 			debugPrint("Updated transfer status of all Messages for user:" + user.getName());
 
 		} catch (SQLException e) {
@@ -143,8 +183,8 @@ public class MessageStoreDB extends MessageStoreDao {
 
 	}
 
-	private boolean updateTransferredStatus(ArrayList<Long> ids) {
-		String updateTransferredStatusSQL = "UPDATE MessageDatabase SET  transferred = ? where id = ?";
+	private boolean updateTransferredStatus(String receiver, ArrayList<Long> ids) {
+		String updateTransferredStatusSQL = "UPDATE MessageDatabase SET  transferred = ? where id = ? and receiver=?";
 
 		int successCount = 0;
 		try {
@@ -153,6 +193,7 @@ public class MessageStoreDB extends MessageStoreDao {
 			for (int count = 0; count < ids.size(); count++) {
 				ps.setBoolean(1, true);
 				ps.setLong(2, ids.get(count));
+				ps.setString(3, receiver);
 
 				int result = ps.executeUpdate();
 				successCount += result == 1 ? 1 : 0;

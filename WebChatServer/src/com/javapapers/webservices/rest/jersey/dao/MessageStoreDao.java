@@ -12,4 +12,5 @@ public abstract class MessageStoreDao {
 
 	public abstract ArrayList<Message> getAllMessages(User user);
 
+	public abstract ArrayList<Message> peekMessage(User user, int count);
 }

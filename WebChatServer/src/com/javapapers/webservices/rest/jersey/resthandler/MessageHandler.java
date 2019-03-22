@@ -85,6 +85,51 @@ public class MessageHandler {
 	}
 
 	@POST
+	@Path("/peekMessages")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public HashMap<String, Object> peekMessages(UserAuthHolder auth) {
+		String userName = auth.getUsername();
+		String token = auth.getToken();
+
+		HashMap<String, Object> returnData = new HashMap<String, Object>();
+
+		Optional<User> u = userDao.getByUserName(userName);
+		if (!u.isPresent()) {
+			debugPrint("No User found with name :" + userName);
+
+			returnData.put("Status", "false");
+			returnData.put("message", "No Such User");
+			return returnData;
+		} else {
+			debugPrint("Got that User");
+			User user = u.get();
+			debugPrint(user);
+			debugPrint(token);
+
+			if (user.verifyToken(token)) {
+				debugPrint("User Verified");
+
+				ArrayList<Message> messages;
+
+				messages = messageStoreDao.peekMessage(user, 3);
+
+				returnData.put("Status", "true");
+				returnData.put("message", "Data retrieved");
+				returnData.put("count", messages.size());
+				returnData.put("contents", messages);
+				return returnData;
+			} else {
+				debugPrint("User token invalid");
+				returnData.put("Status", "true");
+				returnData.put("message", "User token invalid");
+				return returnData;
+			}
+		}
+
+	}
+
+	@POST
 	@Path("getAllMessages")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -147,4 +192,5 @@ public class MessageHandler {
 		}
 
 	}
+
 }
