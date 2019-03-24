@@ -86,3 +86,7 @@
         opacity: 0.5;
     }
 }
+
+.chat-box-message-form .mdl-textfield__input {
+    border-bottom-color: white;
+}

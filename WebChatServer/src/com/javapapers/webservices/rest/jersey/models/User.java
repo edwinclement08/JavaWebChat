@@ -14,7 +14,14 @@ public class User implements XMLSerializable {
 
 	private static final long TIMEOUT_PERIOD_FOR_TOKEN = 60 * 10; // 10 minutes
 	public static final int TOKEN_LENGTH = 25;
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = true;
+
+	private void debugPrint(Object message) {
+		String className = this.getClass().getSimpleName();
+		String methodName = new Throwable().getStackTrace()[1].getMethodName();
+		if (DEBUG)
+			System.out.println(String.format("|%s|%s| :: %s", className, methodName, message.toString()));
+	}
 
 	private String name;
 	private String password;
@@ -89,7 +96,8 @@ public class User implements XMLSerializable {
 		long timeSinceLastLogin = now - tokenCreationTime;
 		if (timeSinceLastLogin < TIMEOUT_PERIOD_FOR_TOKEN) {
 			if (token.equals(givenToken))
-				return true;
+				debugPrint("Token Validity Expired");
+			return true;
 		}
 		return false;
 	}

@@ -1,5 +1,6 @@
 import React from "react";
-import {displayLoginDialog, loginVerify, signupUser, signoutUser} from "../actions";
+import {displayLoginDialog, loginVerify, signupUser, signoutUser} from "../actions/login";
+import {showScreen} from "../actions/screen";
 import {connect} from "react-redux";
 import "./sideBar.css";
 
@@ -37,18 +38,18 @@ class SideBar extends React.Component {
           }
         </header>
         <nav className=" demo-navigation mdl-navigation mdl-color--blue-grey-800" id=" sidebarLinksPlugPoint">
-          <a className=" mdl-navigation__link" href="#ds">
+          <a className=" mdl-navigation__link" onClick={() => this.props.showScreen("home")}>
             <i className=" mdl-color-text--blue-grey-400 material-icons" role="presentation"> home </i>
             Home
           </a>
-          <a className=" mdl-navigation__link" href="#sds">
+          <a className=" mdl-navigation__link" onClick={() => this.props.showScreen("allUsers")}>
             <i className=" mdl-color-text--blue-grey-400 material-icons" role="presentation"> inbox </i>
-            Inbox </a>
+            All Users </a>
           <div className=" mdl-layout-spacer">
           </div>
           <div className=" mdl-layout-spacer">
           </div>
-          <a className=" mdl-navigation__link" href="#sddf">
+          <a className=" mdl-navigation__link" onClick={() => this.props.showScreen("help")}>
             <i className=" mdl-color-text--blue-grey-400 material-icons" role="presentation">
               help_outline
             </i>
@@ -72,7 +73,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   signoutUser: () => dispatch(signoutUser()),
   showLoginDialog: () => dispatch(displayLoginDialog(true)),
-
+  showScreen: (screenName) => dispatch(showScreen(screenName)),
 });
 
 export default connect(

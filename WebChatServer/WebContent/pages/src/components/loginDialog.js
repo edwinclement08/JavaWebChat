@@ -1,7 +1,7 @@
 import React from "react";
 
 import {connect} from 'react-redux'
-import {displayLoginDialog, loginVerify, signupUser} from "../actions";
+import {displayLoginDialog, loginVerify, signupUser} from "../actions/login";
 import './loginDialog.css';
 
 class LoginDialog extends React.Component {

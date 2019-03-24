@@ -1,3 +1,6 @@
+import {getAllFriendsForUser, showScreen} from "./screen";
+import {postData} from "./_util";
+
 export const hostname = "http://192.168.0.192:8080";
 
 export const SHOW_LOGIN_MODAL = 'SHOW_LOGIN_MODAL';
@@ -15,24 +18,6 @@ export const SIGNUP_FAILURE = "SIGNUP_FAILURE";
 export const USER_SIGNOUT = "USER_SIGNOUT";
 
 // export const SAVE_LOGIN_TOKEN = "SAVE_LOGIN_TOKEN"; // TODO
-
-function postData(url = ``, data = {}) {
-  // Default options are marked with *
-  return fetch(url, {
-    method: "POST", // *GET, POST, PUT, DELETE, etc.
-    mode: "cors", // no-cors, cors, *same-origin
-    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-    credentials: "same-origin", // include, *same-origin, omit
-    headers: {
-      "Content-Type": "application/json",
-      // "Content-Type": "application/x-www-form-urlencoded",
-    },
-    redirect: "follow", // manual, *follow, error
-    referrer: "no-referrer", // no-referrer, *client
-    body: JSON.stringify(data), // body data type must match "Content-Type" header
-  })
-    .then(response => response.json()); // parses JSON response into native Javascript objects
-}
 
 
 export function displayLoginDialog(status) {
@@ -75,7 +60,12 @@ export function loginVerify(username, password) {
       }
     ).then((result) => {
       if (result.status === "true") {
-        setTimeout(() => dispatch(displayLoginDialog(false)), 200);
+        setTimeout(() => {
+          dispatch(displayLoginDialog(false));
+          dispatch(showScreen("home"));
+          dispatch(getAllFriendsForUser());
+
+        }, 200);
         return dispatch(loginSuccessful(result.user, result.token));
       } else {
         return dispatch(loginFailure(result.message));
@@ -118,7 +108,12 @@ export function signupUser(username, password) {
       }
     ).then((result) => {
       if (result.status === "true") {
-        setTimeout(() => dispatch(displayLoginDialog(false)), 200);
+        setTimeout(() => {
+          dispatch(displayLoginDialog(false));
+          dispatch(showScreen("home"));
+          dispatch(getAllFriendsForUser());
+
+        }, 200);
         return dispatch(signupSuccessful(result.user, result.token));
       } else {
         return dispatch(signupFailure("Signup Failure"));

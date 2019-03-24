@@ -14,16 +14,16 @@ import * as serviceWorker from "./serviceWorker";
 import Header from "./components/header";
 import SideBar from "./components/sideBar";
 import PageMask from "./components/pageMask";
-import HomePage from "./components/homePage";
+import RootPage from "./components/rootPage";
 import LoginDialog from "./components/loginDialog"
 
-import reducer from './reducers';
-import {displayLoginDialog,} from './actions';
+import reducer from './reducers/main';
+import {displayLoginDialog,} from './actions/login';
 
-const HomePagePortal = name => ReactDOM.createPortal(<HomePage/>, document.getElementById("homePagePlugPoint"));
+const RootPagePortal = name => ReactDOM.createPortal(<RootPage/>, document.getElementById("pagePlugPoint"));
 const SideBarPortal = props => ReactDOM.createPortal(<SideBar/>, document.getElementById("sidebarPlugPoint"));
 const HeaderPortal = props => ReactDOM.createPortal(<Header/>, document.getElementById("headerPlugPoint"));
-const LoginPortal = (props) => ReactDOM.createPortal(<LoginDialog/>, document.getElementById("loginDialog"));
+const LoginPortal = props => ReactDOM.createPortal(<LoginDialog/>, document.getElementById("loginDialog"));
 
 
 const loggerMiddleware = createLogger();
@@ -48,7 +48,7 @@ render(
   <Provider store={store}>
     <PageMask display={true}/>
     <LoginPortal/>
-    <HomePagePortal/>
+    <RootPagePortal/>
     <SideBarPortal/>
     <HeaderPortal/>
   </Provider>

@@ -1,8 +1,12 @@
-import {combineReducers} from 'redux'
 import {
-  SHOW_LOGIN_MODAL, HIDE_LOGIN_MODAL, USER_SIGNOUT,
-  LOGIN_VERIFY_SUCCESS, LOGIN_VERIFY_FAILURE, SIGNUP_SUCCESSFUL, SIGNUP_FAILURE
-} from "./actions";
+  HIDE_LOGIN_MODAL,
+  LOGIN_VERIFY_FAILURE,
+  LOGIN_VERIFY_SUCCESS,
+  SHOW_LOGIN_MODAL,
+  SIGNUP_FAILURE,
+  SIGNUP_SUCCESSFUL,
+  USER_SIGNOUT
+} from "../actions/login";
 
 
 function loginReducer(state, action) {
@@ -68,9 +72,4 @@ function loginReducer(state, action) {
   }
 }
 
-const reducer = combineReducers({
-  login: loginReducer,
-});
-
-export default reducer;
-
+export default loginReducer;

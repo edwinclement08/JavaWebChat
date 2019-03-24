@@ -1,8 +1,9 @@
 package com.javapapers.webservices.rest.jersey.resthandler.jsonholder;
 
-public class UserAuthHolder {
+public class UserMessageRequestHolder {
 	public String username;
 	public String token;
+	public String friend;
 
 	public String getUsername() {
 		return username;
@@ -18,5 +19,13 @@ public class UserAuthHolder {
 
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+	public String getFriend() {
+		return friend;
+	}
+
+	public void setFriend(String friend) {
+		this.friend = friend;
 	}
 }

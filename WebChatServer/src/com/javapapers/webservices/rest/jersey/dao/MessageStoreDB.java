@@ -92,22 +92,12 @@ public class MessageStoreDB extends MessageStoreDao {
 	}
 
 	@Override
-	public ArrayList<Message> getAllMessages(User user) {
-		return getMessages(user, true);
-	}
-
-	@Override
-	public ArrayList<Message> getNewMessages(User user) {
-		return getMessages(user, false);
-	}
-
-	@Override
-	public ArrayList<Message> peekMessage(User user, int count) {
+	public ArrayList<Message> peekMessage(User user, String friend, int count) {
 		String peekMessagesSQL = String.join("\n",
 				"SELECT * FROM (SELECT id, sender, receiver, message, timeSent, transferred",
-				" from MessageDatabase where receiver='%s' or sender='%s'",
+				" from MessageDatabase where (receiver='%s' and sender='%s')  or (receiver='%s' and sender='%s') ",
 				" ORDER BY  id DESC LIMIT  %d ) sdf order by id;");
-		peekMessagesSQL = String.format(peekMessagesSQL, user.getName(), user.getName(), count);
+		peekMessagesSQL = String.format(peekMessagesSQL, user.getName(), friend, friend, user.getName());
 
 		debugPrint(peekMessagesSQL);
 
@@ -140,10 +130,20 @@ public class MessageStoreDB extends MessageStoreDao {
 		return resultListOfMessages;
 	}
 
-	private ArrayList<Message> getMessages(User user, boolean allMessages) {
+	@Override
+	public ArrayList<Message> getAllMessages(User user, String friend) {
+		return getMessages(user, friend, true);
+	}
+
+	@Override
+	public ArrayList<Message> getNewMessages(User user, String friend) {
+		return getMessages(user, friend, false);
+	}
+
+	private ArrayList<Message> getMessages(User user, String friend, boolean allMessages) {
 		String getAllMessagesSQL = String.join("\n", "SELECT id, sender, receiver, message, timeSent, transferred",
-				" from MessageDatabase where (receiver='%s' or sender='%s') ");
-		getAllMessagesSQL = String.format(getAllMessagesSQL, user.getName(), user.getName());
+				" from MessageDatabase where ((receiver='%s' and sender='%s')  or (receiver='%s' and sender='%s')) ");
+		getAllMessagesSQL = String.format(getAllMessagesSQL, user.getName(), friend, friend, user.getName());
 		if (!allMessages)
 			getAllMessagesSQL += "and transferred=0";
 		debugPrint(getAllMessagesSQL);
@@ -210,6 +210,34 @@ public class MessageStoreDB extends MessageStoreDao {
 			debugPrint("Some Error in updating message transferred status");
 			return false;
 		}
+	}
+
+	@Override
+	public ArrayList<String> getChatFriends(User user) {
+		String getFriendsSQL = String.join("\n", "SELECT sender from MessageDatabase where (receiver='%s') UNION ",
+				"SELECT receiver from MessageDatabase where (sender='%s');");
+
+		getFriendsSQL = String.format(getFriendsSQL, user.getName(), user.getName());
+
+		debugPrint("SENDERSQL:" + getFriendsSQL);
+
+		ArrayList<String> resultOfFriends = new ArrayList<String>();
+
+		try {
+			Statement ps = dbConnection.createStatement();
+			ResultSet rs = ps.executeQuery(getFriendsSQL);
+			while (rs.next()) {
+				String friend = rs.getString("sender");
+
+				resultOfFriends.add(friend);
+				debugPrint(friend);
+			}
+			debugPrint("Retrieved all Friends for user:" + user.getName());
+		} catch (SQLException e) {
+			e.printStackTrace();
+			debugPrint("Failed in executing SQL(get all friends).");
+		}
+		return resultOfFriends;
 	}
 
 }

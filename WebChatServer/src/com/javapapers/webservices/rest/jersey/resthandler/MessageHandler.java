@@ -21,7 +21,7 @@ import com.javapapers.webservices.rest.jersey.dao.UserStoreDB;
 import com.javapapers.webservices.rest.jersey.models.Message;
 import com.javapapers.webservices.rest.jersey.models.User;
 import com.javapapers.webservices.rest.jersey.resthandler.jsonholder.MessageTempHolder;
-import com.javapapers.webservices.rest.jersey.resthandler.jsonholder.UserAuthHolder;
+import com.javapapers.webservices.rest.jersey.resthandler.jsonholder.UserMessageRequestHolder;
 
 @Path("/message")
 @Singleton
@@ -77,18 +77,17 @@ public class MessageHandler {
 				}
 			} else {
 				debugPrint("user token invalid");
+				return "{'status':'false', 'message':'user token invalid'}".replace("'", "\"");
+
 			}
-
 		}
-
-		return "{'status':'false', 'message':'General Failure'}".replace("'", "\"");
 	}
 
 	@POST
 	@Path("/peekMessages")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public HashMap<String, Object> peekMessages(UserAuthHolder auth) {
+	public HashMap<String, Object> peekMessages(UserMessageRequestHolder auth) {
 		String userName = auth.getUsername();
 		String token = auth.getToken();
 
@@ -112,7 +111,7 @@ public class MessageHandler {
 
 				ArrayList<Message> messages;
 
-				messages = messageStoreDao.peekMessage(user, 3);
+				messages = messageStoreDao.peekMessage(user, auth.getFriend(), 3);
 
 				returnData.put("Status", "true");
 				returnData.put("message", "Data retrieved");
@@ -121,7 +120,7 @@ public class MessageHandler {
 				return returnData;
 			} else {
 				debugPrint("User token invalid");
-				returnData.put("Status", "true");
+				returnData.put("Status", "false");
 				returnData.put("message", "User token invalid");
 				return returnData;
 			}
@@ -133,8 +132,8 @@ public class MessageHandler {
 	@Path("getAllMessages")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public HashMap<String, Object> getAllMessage(UserAuthHolder auth) {
-		return getMessages(auth.getUsername(), auth.getToken(), true);
+	public HashMap<String, Object> getAllMessage(UserMessageRequestHolder auth) {
+		return getMessages(auth.getUsername(), auth.getToken(), auth.getFriend(), true);
 
 	}
 
@@ -142,8 +141,8 @@ public class MessageHandler {
 	@Path("getNewMessages")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public HashMap<String, Object> getNewMessage(UserAuthHolder auth) {
-		return getMessages(auth.getUsername(), auth.getToken(), false);
+	public HashMap<String, Object> getNewMessage(UserMessageRequestHolder auth) {
+		return getMessages(auth.getUsername(), auth.getToken(), auth.getFriend(), false);
 	}
 
 	/**
@@ -152,7 +151,7 @@ public class MessageHandler {
 	 * @param allMessages true - all messages, false - un-received ones only
 	 * @return
 	 */
-	private HashMap<String, Object> getMessages(String userName, String token, boolean allMessages) {
+	private HashMap<String, Object> getMessages(String userName, String token, String friend, boolean allMessages) {
 		HashMap<String, Object> returnData = new HashMap<String, Object>();
 
 		Optional<User> u = userDao.getByUserName(userName);
@@ -165,8 +164,6 @@ public class MessageHandler {
 		} else {
 			debugPrint("Got that User");
 			User user = u.get();
-			debugPrint(user);
-			debugPrint(token);
 
 			if (user.verifyToken(token)) {
 				debugPrint("User Verified");
@@ -174,9 +171,9 @@ public class MessageHandler {
 				ArrayList<Message> messages;
 
 				if (allMessages)
-					messages = messageStoreDao.getAllMessages(user);
+					messages = messageStoreDao.getAllMessages(user, friend);
 				else
-					messages = messageStoreDao.getNewMessages(user);
+					messages = messageStoreDao.getNewMessages(user, friend);
 
 				returnData.put("Status", "true");
 				returnData.put("message", "Data retrieved");
@@ -185,12 +182,64 @@ public class MessageHandler {
 				return returnData;
 			} else {
 				debugPrint("User token invalid");
-				returnData.put("Status", "true");
+				debugPrint(user);
+				debugPrint(token);
+				debugPrint(user.getToken().equals(token));
+
+				returnData.put("Status", "false");
 				returnData.put("message", "User token invalid");
 				return returnData;
 			}
 		}
 
+	}
+
+	@POST
+	@Path("getUserFriends")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public HashMap<String, Object> getUserFriends(UserMessageRequestHolder auth) {
+		HashMap<String, Object> returnData = new HashMap<String, Object>();
+		UserValidationResult uv = verifyUser(auth.getUsername(), auth.getToken());
+		if (uv.status) {
+			returnData.put("friends", messageStoreDao.getChatFriends(uv.user));
+			returnData.put("status", true);
+			returnData.put("message", "Friend List Successfully Retrieved");
+		} else {
+			returnData.put("status", false);
+			returnData.put("message", uv.message);
+		}
+		return returnData;
+	}
+
+	class UserValidationResult {
+		public String message = "";
+		public boolean status = false;
+		public User user = null;
+	}
+
+	private UserValidationResult verifyUser(String userName, String token) {
+		UserValidationResult uv = new UserValidationResult();
+
+		Optional<User> u = userDao.getByUserName(userName);
+		if (!u.isPresent()) {
+			uv.message = "No User found with name :" + userName;
+			uv.status = false;
+			return uv;
+		} else {
+			uv.message = "Got that User :" + userName;
+			User user = u.get();
+			if (user.verifyToken(token)) {
+				uv.status = true;
+				uv.message = "User Verified:" + userName;
+				uv.user = user;
+				return uv;
+			} else {
+				uv.message = "User token invalid:" + userName;
+				uv.status = false;
+				return uv;
+			}
+		}
 	}
 
 }

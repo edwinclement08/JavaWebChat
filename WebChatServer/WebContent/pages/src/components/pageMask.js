@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux'
-import {displayLoginDialog} from "../actions";
+import {displayLoginDialog} from "../actions/login";
 
 class PageMask extends Component {
   render() {

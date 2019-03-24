@@ -1,16 +1,11 @@
 import React from "react";
-import {displayLoginDialog} from "../actions";
+import {displayLoginDialog} from "../actions/login";
 import {connect} from "react-redux";
 import styled from 'styled-components';
 
 import "./ChatCardComponent.css"
 
-
 class ChatElement extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     let side = "";
     if (this.props.userIsSender) side = "self";
@@ -50,49 +45,83 @@ class ChatCardComponent extends React.Component {
       return hash;
     };
     this.toggleChatMode = () => {
-      this.setState(Object.assign({}, this.state, {isChatOpened: true}))
+      this.setState(Object.assign({}, this.state, {isChatOpened: !this.state.isChatOpened}))
     };
     this.getStandardColor = (name) => this.colorArray[this.hash(name) % this.colorArray.length];
-    console.log("wddwwd " + this.getStandardColor(this.props.receipient))
+
   }
 
   render() {
-    let chatElems = [
+    let totalChatElems = [
       <ChatElement userIsSender content={"Nice to Meet You"}/>,
-      <ChatElement userIsReceiver sender="Timothy" content={"Whats up"}/>,
+      <ChatElement userIsReceiver sender="Timothy" content={"Whats up2"}/>,
+      <ChatElement userIsSender content={"Whats up"}/>,
+      <ChatElement userIsReceiver sender="Timothy" content={"Whats up4"}/>,
+      <ChatElement userIsSender content={"Whats up"}/>,
+      <ChatElement userIsReceiver sender="Timothy" content={"Whats up6"}/>,
+      <ChatElement userIsSender content={"Whats up"}/>,
+      <ChatElement userIsReceiver sender="Timothy" content={"Whats up8"}/>,
+      <ChatElement userIsSender content={"Whats up9"}/>,
     ];
+    let len = totalChatElems.length;
+    let chatElems = totalChatElems.slice(len - (this.state.isChatOpened ? len : 3), len);
+
 
     return <React.Fragment>
       <div className={"chat-person-card mdl-card mdl-shadow--2dp mdl-cell " +
       (this.state.isChatOpened ? "mdl-cell--12-col" : "mdl-cell--4-col")}
-           style={{backgroundColor: this.getStandardColor(this.props.receipient)}}>
+           style={{backgroundColor: this.getStandardColor(this.props.recipient)}}>
         <div className="mdl-card__title">
         <span>
-          {this.props.receipient}
+          {this.props.recipient}
         </span>
-          <div className="mdl-layout-spacer">
-          </div>
-          <button className="mdl-button mdl-js-button mdl-button--raised" onClick={() => alert("d")}
-                  style={{
-                    minWidth: "inherit", padding: "0px 7px", height: 'inherit',
-                    lineHeight: "28px", background: "lightgrey"
-                  }}> X
-          </button>
+          {this.state.isChatOpened ?
+            <React.Fragment>
+              <div className="mdl-layout-spacer">
+              </div>
+              < button className="mdl-button mdl-js-button mdl-button--raised" onClick={this.toggleChatMode}
+                       style={{
+                         minWidth: "inherit", padding: "0px 7px", height: 'inherit',
+                         lineHeight: "28px", background: "lightgrey"
+                       }}> X
+              </button>
+            </React.Fragment>
+            :
+            ""
+          }
+
         </div>
-        <div className="mdl-card__supporting-text  mdl-card--border previous-chat-details ">
-          <ol className="discussion">
+        <div className="mdl-card__supporting-text  mdl-card--border previous-chat-details "
+             style={{width: "initial", height: this.state.isChatOpened ? "50vh" : "inherit"}}>
+          <ol className="discussion"
+              style={{width: "initial", overflowY: this.state.isChatOpened ? "scroll" : "hidden", height: "100%",}}>
             {chatElems}
           </ol>
         </div>
         <div className="mdl-card__actions mdl-card--border" style={{padding: "0px"}}>
-          <div className="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
-               style={{width: "100%", padding: "10px 25px 10px 15px"}} onClick={this.toggleChatMode}>
-            <div style={{display: "flex"}}>
-              <span>Chat</span>
-              <span style={{flex: 1}}/>
-              <i className="material-icons" style={{transform: "translate(5px, 7px)"}}>chat</i>
+
+          {this.state.isChatOpened ?
+            <div className="chat-box-message-form" style={{paddingLeft: "20px", width: "100%"}}>
+              <div className="mdl-textfield mdl-js-textfield" style={{width: "calc(100% - 100px)"}}>
+                <form action="#">
+                  <input className="mdl-textfield__input" type="text" id="asdas"/>
+                </form>
+              </div>
+              <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent"
+                      style={{right: "-15px", height: "50px", paddingBottom: "5px"}}>
+                <i className="material-icons" style={{color: "white"}}>send</i>
+              </button>
             </div>
-          </div>
+            :
+            <div className="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                 style={{width: "100%", padding: "10px 25px 10px 15px"}} onClick={this.toggleChatMode}>
+              <div style={{display: "flex"}}>
+                <span>Chat</span>
+                <span style={{flex: 1}}/>
+                <i className="material-icons" style={{transform: "translate(5px, 7px)"}}>chat</i>
+              </div>
+            </div>
+          }
         </div>
       </div>
     </React.Fragment>
