@@ -2,26 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97bdf507-3273-496d-958e-2ded160d5d86" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/actions/_util.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/actions/screen.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/reducers/main.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/reducers/screen.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ChatCardComponent.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ChatCardComponent.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ChatCardComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ChatCardComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/homePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rootPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/loginDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/loginDialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pageMask.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pageMask.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/sideBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sideBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../src/com/javapapers/webservices/rest/jersey/dao/MessageStoreDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../src/com/javapapers/webservices/rest/jersey/dao/MessageStoreDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../src/com/javapapers/webservices/rest/jersey/dao/MessageStoreDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../src/com/javapapers/webservices/rest/jersey/dao/MessageStoreDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../src/com/javapapers/webservices/rest/jersey/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../src/com/javapapers/webservices/rest/jersey/models/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../src/com/javapapers/webservices/rest/jersey/resthandler/MessageHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../src/com/javapapers/webservices/rest/jersey/resthandler/MessageHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../src/com/javapapers/webservices/rest/jersey/resthandler/jsonholder/UserAuthHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../src/com/javapapers/webservices/rest/jersey/resthandler/jsonholder/UserMessageRequestHolder.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -39,7 +20,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/components/rootPage.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="575">
+                <state relative-caret-position="713">
                   <caret line="31" column="2" selection-start-line="31" selection-start-column="2" selection-end-line="31" selection-end-column="2" />
                   <folding>
                     <element signature="e#0#26#0" expanded="true" />
@@ -51,7 +32,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/index.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="69">
+                <state relative-caret-position="529">
                   <caret line="23" column="10" selection-start-line="23" selection-start-column="10" selection-end-line="23" selection-end-column="10" />
                   <folding>
                     <element signature="e#0#26#0" expanded="true" />
@@ -63,7 +44,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/components/ChatCardComponent.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="2070">
+                <state relative-caret-position="2185">
                   <caret line="95" column="36" selection-start-line="95" selection-start-column="36" selection-end-line="95" selection-end-column="36" />
                   <folding>
                     <element signature="e#0#26#0" expanded="true" />
@@ -75,8 +56,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/actions/screen.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="837">
-                  <caret line="87" column="40" selection-start-line="87" selection-start-column="40" selection-end-line="87" selection-end-column="40" />
+                <state relative-caret-position="183">
+                  <caret line="46" column="7" lean-forward="true" selection-start-line="46" selection-start-column="7" selection-end-line="46" selection-end-column="7" />
                 </state>
               </provider>
             </entry>
@@ -84,8 +65,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/components/sideBar.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="368">
-                  <caret line="20" column="65" lean-forward="true" selection-start-line="20" selection-start-column="65" selection-end-line="20" selection-end-column="65" />
+                <state relative-caret-position="460">
+                  <caret line="20" column="65" selection-start-line="20" selection-start-column="65" selection-end-line="20" selection-end-column="65" />
                   <folding>
                     <element signature="e#0#26#0" expanded="true" />
                   </folding>
@@ -101,16 +82,25 @@
             <entry file="file://$PROJECT_DIR$/src/actions/login.js">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="1656">
-                  <caret line="73" column="23" lean-forward="true" selection-start-line="73" selection-start-column="23" selection-end-line="73" selection-end-column="23" />
+                  <caret line="73" column="23" selection-start-line="73" selection-start-column="23" selection-end-line="73" selection-end-column="23" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/reducers/screen.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="230">
+                  <caret line="10" column="9" lean-forward="true" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
                 </state>
               </provider>
             </entry>
           </file>
           <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/reducers/screen.js">
+            <entry file="file://$PROJECT_DIR$/package.json">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="46">
-                  <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+                <state relative-caret-position="184">
+                  <caret line="8" column="28" lean-forward="true" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
                 </state>
               </provider>
             </entry>
@@ -118,7 +108,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/reducers/main.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="115">
+                <state relative-caret-position="161">
                   <caret line="7" column="8" selection-start-line="7" selection-start-column="2" selection-end-line="7" selection-end-column="8" />
                   <folding>
                     <element signature="e#0#38#0" expanded="true" />
@@ -227,7 +217,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -267,19 +256,25 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.standard" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="$PROJECT_DIR$/node_modules/eslint" />
     <property name="node.js.selected.package.standard" value="" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/node_modules/react-scripts" />
+    <property name="nodejs_package_manager_path" value="yarn" />
     <property name="settings.editor.selected.configurable" value="MTConfigurable" />
     <property name="settings.editor.splitter.proportion" value="0.23856859" />
   </component>
@@ -309,7 +304,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="npm.start">
     <configuration name="renders without crashing" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
@@ -323,8 +318,19 @@
       </test-names>
       <method v="2" />
     </configuration>
+    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.start" />
         <item itemvalue="Jest.renders without crashing" />
       </list>
     </recent_temporary>
@@ -344,6 +350,11 @@
       <workItem from="1553287256579" duration="11861000" />
       <workItem from="1553340347633" duration="949000" />
       <workItem from="1553371213623" duration="28000" />
+      <workItem from="1553404619946" duration="458000" />
+      <workItem from="1553621430072" duration="32000" />
+      <workItem from="1553621485052" duration="473000" />
+      <workItem from="1553689417140" duration="328000" />
+      <workItem from="1553692293231" duration="256000" />
     </task>
     <servers />
   </component>
@@ -353,18 +364,19 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="52710000" />
+    <option name="totallyTimeSpent" value="54257000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1920" height="1057" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.11690363" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.11690363" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32810867" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32963374" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3291536" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -380,6 +392,17 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/actions/screen.js</url>
+          <line>59</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/favicon.ico">
@@ -435,13 +458,6 @@
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="8" column="33" lean-forward="true" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
         </state>
       </provider>
     </entry>
@@ -523,7 +539,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/rootPage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="575">
+        <state relative-caret-position="713">
           <caret line="31" column="2" selection-start-line="31" selection-start-column="2" selection-end-line="31" selection-end-column="2" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
@@ -533,7 +549,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="69">
+        <state relative-caret-position="529">
           <caret line="23" column="10" selection-start-line="23" selection-start-column="10" selection-end-line="23" selection-end-column="10" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
@@ -543,7 +559,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/ChatCardComponent.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2070">
+        <state relative-caret-position="2185">
           <caret line="95" column="36" selection-start-line="95" selection-start-column="36" selection-end-line="95" selection-end-column="36" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
@@ -553,31 +569,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/sideBar.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="20" column="65" lean-forward="true" selection-start-line="20" selection-start-column="65" selection-end-line="20" selection-end-column="65" />
+        <state relative-caret-position="460">
+          <caret line="20" column="65" selection-start-line="20" selection-start-column="65" selection-end-line="20" selection-end-column="65" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/actions/screen.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="837">
-          <caret line="87" column="40" selection-start-line="87" selection-start-column="40" selection-end-line="87" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/actions/login.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1656">
-          <caret line="73" column="23" lean-forward="true" selection-start-line="73" selection-start-column="23" selection-end-line="73" selection-end-column="23" />
+          <caret line="73" column="23" selection-start-line="73" selection-start-column="23" selection-end-line="73" selection-end-column="23" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/reducers/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
+        <state relative-caret-position="161">
           <caret line="7" column="8" selection-start-line="7" selection-start-column="2" selection-end-line="7" selection-end-column="8" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
@@ -585,10 +594,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/actions/screen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="46" column="7" lean-forward="true" selection-start-line="46" selection-start-column="7" selection-end-line="46" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/reducers/screen.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+        <state relative-caret-position="230">
+          <caret line="10" column="9" lean-forward="true" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="8" column="28" lean-forward="true" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
         </state>
       </provider>
     </entry>
