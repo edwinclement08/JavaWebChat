@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.util.Strings;
 
 import com.javapapers.webservices.rest.jersey.dao.MessageStoreDB;
 import com.javapapers.webservices.rest.jersey.dao.MessageStoreDao;
@@ -61,7 +62,7 @@ public class MessageHandler {
 		Optional<User> u = userDao.getByUserName(m.getUsername());
 		if (!u.isPresent()) {
 			debugPrint("No User found with name :" + m.getUsername());
-			return "{'status':'false', 'message':'No Such User'}".replace("'", "\"");
+			return "{'status':false, 'message':'No Such User'}".replace("'", "\"");
 		} else {
 			User user = u.get();
 			debugPrint("Got that User:" + user + " || tokenReceived: " + m.getToken());
@@ -70,14 +71,14 @@ public class MessageHandler {
 				debugPrint("User Verified");
 				boolean status = messageStoreDao.sendMessage(message);
 				if (status) {
-					return "{'status':'true', 'message':'Message Sent'}".replace("'", "\"");
+					return "{'status':true, 'message':'Message Sent'}".replace("'", "\"");
 				} else {
 					debugPrint("message send failure " + message.toString());
-					return "{'status':'false', 'message':'Message send failure'}".replace("'", "\"");
+					return "{'status':false, 'message':'Message send failure'}".replace("'", "\"");
 				}
 			} else {
 				debugPrint("user token invalid");
-				return "{'status':'false', 'message':'user token invalid'}".replace("'", "\"");
+				return "{'status':false, 'message':'user token invalid'}".replace("'", "\"");
 
 			}
 		}
@@ -97,7 +98,7 @@ public class MessageHandler {
 		if (!u.isPresent()) {
 			debugPrint("No User found with name :" + userName);
 
-			returnData.put("Status", "false");
+			returnData.put("status", false);
 			returnData.put("message", "No Such User");
 			return returnData;
 		} else {
@@ -113,14 +114,14 @@ public class MessageHandler {
 
 				messages = messageStoreDao.peekMessage(user, auth.getFriend(), 3);
 
-				returnData.put("Status", "true");
+				returnData.put("status", true);
 				returnData.put("message", "Data retrieved");
 				returnData.put("count", messages.size());
 				returnData.put("contents", messages);
 				return returnData;
 			} else {
 				debugPrint("User token invalid");
-				returnData.put("Status", "false");
+				returnData.put("status", false);
 				returnData.put("message", "User token invalid");
 				return returnData;
 			}
@@ -158,7 +159,7 @@ public class MessageHandler {
 		if (!u.isPresent()) {
 			debugPrint("No User found with name :" + userName);
 
-			returnData.put("Status", "false");
+			returnData.put("status", false);
 			returnData.put("message", "No Such User");
 			return returnData;
 		} else {
@@ -175,7 +176,7 @@ public class MessageHandler {
 				else
 					messages = messageStoreDao.getNewMessages(user, friend);
 
-				returnData.put("Status", "true");
+				returnData.put("status", true);
 				returnData.put("message", "Data retrieved");
 				returnData.put("count", messages.size());
 				returnData.put("contents", messages);
@@ -186,12 +187,11 @@ public class MessageHandler {
 				debugPrint(token);
 				debugPrint(user.getToken().equals(token));
 
-				returnData.put("Status", "false");
+				returnData.put("status", false);
 				returnData.put("message", "User token invalid");
 				return returnData;
 			}
 		}
-
 	}
 
 	@POST
@@ -207,6 +207,7 @@ public class MessageHandler {
 			returnData.put("message", "Friend List Successfully Retrieved");
 		} else {
 			returnData.put("status", false);
+			returnData.put("friends", new ArrayList<Strings>());
 			returnData.put("message", uv.message);
 		}
 		return returnData;

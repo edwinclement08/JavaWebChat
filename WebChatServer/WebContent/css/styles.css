@@ -21,6 +21,7 @@ html, body {
   width: 48px;
   height: 48px;
   border-radius: 24px;
+  transform: scaleX(1.5) scaleY(1.5) translate(15px,-15px);
 }
 .demo-layout .mdl-layout__header .mdl-layout__drawer-button {
   color: rgba(0, 0, 0, 0.54);

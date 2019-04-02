@@ -8,3 +8,5 @@ takeV2/
 WebChatServer/tempMessageFileTest\.message\.xml
 
 WebChatServer/tempUserFileTest\.user\.xml
+
+WebChatServer/war/

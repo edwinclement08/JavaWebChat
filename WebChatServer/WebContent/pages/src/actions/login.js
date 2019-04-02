@@ -1,5 +1,6 @@
-import {getAllFriendsForUser, showScreen} from "./screen";
-import {postData} from "./_util";
+import {getAllFriendsForUser, getAllUsers, showScreen} from "./screen";
+
+import {postData, getData} from "./_util";
 
 export const hostname = "http://192.168.0.192:8080";
 
@@ -64,6 +65,7 @@ export function loginVerify(username, password) {
           dispatch(displayLoginDialog(false));
           dispatch(showScreen("home"));
           dispatch(getAllFriendsForUser());
+          dispatch(getAllUsers());
 
         }, 200);
         return dispatch(loginSuccessful(result.user, result.token));
@@ -112,6 +114,7 @@ export function signupUser(username, password) {
           dispatch(displayLoginDialog(false));
           dispatch(showScreen("home"));
           dispatch(getAllFriendsForUser());
+          dispatch(getAllUsers());
 
         }, 200);
         return dispatch(signupSuccessful(result.user, result.token));

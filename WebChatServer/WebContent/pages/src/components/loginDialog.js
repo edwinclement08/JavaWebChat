@@ -49,7 +49,6 @@ class LoginDialog extends React.Component {
 
   render() {
     let showMessage = (this.state.statusMessage !== "" || this.props.loginDialogMessage !== "");
-    console.log("message:" + showMessage);
     let messageClassName = this.props.isSuccess ? "isa_success" : "isa_error";
     let errorMessage = this.state.statusMessage === "" ? this.props.loginDialogMessage : this.state.statusMessage;
     return (

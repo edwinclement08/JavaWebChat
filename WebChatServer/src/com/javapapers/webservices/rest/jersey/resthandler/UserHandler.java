@@ -2,6 +2,7 @@ package com.javapapers.webservices.rest.jersey.resthandler;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 import javax.inject.Singleton;
 import javax.ws.rs.Consumes;
@@ -37,7 +38,15 @@ public class UserHandler {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public ArrayList<User> sayPlainTextHello() {
+	public ArrayList<String> allNames() {
+		return new ArrayList<String>(
+				userDao.getAll().stream().map(user -> user.getName()).collect(Collectors.toList()));
+	}
+
+	@GET
+	@Path("/details/")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<User> allUserDetails() {
 		return new ArrayList<User>(userDao.getAll());
 	}
 

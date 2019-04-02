@@ -31,24 +31,35 @@ let PageHolder = connect(state => ({
   }
 );
 
-let HomePage = connect(state => ({
-  friends: state.screen.details.home.friends
+let AllUsersPage = connect(state => ({
+  users: state.screen.details.home.users
 }))((props) => {
   let ChatCardList = [];
-  props.friends.forEach((val) => ChatCardList.push(<ChatCardComponent recipient={val}/>));
+  props.users.forEach((val, i) => ChatCardList.push(<ChatCardComponent key={i} friend={val}/>));
   return <div className="mdl-grid ">
     {ChatCardList}
   </div>;
 });
 
-let AllUsersPage = () =>
-  <div className="mdl-grid ">
-    All Users Pages
+let HomePage = connect(state => ({
+  friends: state.screen.details.home.friends
+}))((props) => {
+  let ChatCardList = [];
+  props.friends.forEach((val, i) => ChatCardList.push(<ChatCardComponent key={i} friend={val}/>));
+  return <div className="mdl-grid ">
+    {ChatCardList}
   </div>;
+});
 
 let HelpPage = () =>
   <div className="mdl-grid ">
-    Help Pages
+    <p className="mdl-cell--12-col"><h3>Help Pages</h3></p>
+    <p className="mdl-cell--12-col">
+      <h6>Chat with your friends on the <b><i>Home</i></b> Page </h6>
+      <h6>If you can't find your friends on the <b><i>Home</i></b> Page, start chat on the <b><i>All Users</i></b> Page.
+      </h6>
+    </p>
+
   </div>;
 
 let NotLoggedInPage = () =>

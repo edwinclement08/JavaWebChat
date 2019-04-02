@@ -32,14 +32,12 @@ const store = createStore(
   composeWithDevTools(
     applyMiddleware(
       thunkMiddleware, // lets us dispatch() functions
-      loggerMiddleware // neat middleware that logs actions
+      // loggerMiddleware // neat middleware that logs actions
     )
     // other store enhancers if any
   )
 );
 
-console.log(store.getState());
-// const unsubscribe = store.subscribe(() => console.log(store.getState()));
 
 store.dispatch(displayLoginDialog(true));
 

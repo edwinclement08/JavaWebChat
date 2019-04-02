@@ -1,4 +1,4 @@
-import {postData} from "./_util";
+import {postData, getData} from "./_util";
 
 export const hostname = "http://192.168.0.192:8080";
 
@@ -8,14 +8,9 @@ export const SCREEN_NOT_FOUND = "SCREEN_NOT_FOUND";
 export const LOAD_USER_FRIENDS = "LOAD_USER_FRIENDS";
 export const LOAD_USER_FRIENDS_SUCCESS = "LOAD_USER_FRIENDS_SUCCESS";
 
-export const LOAD_USER_CHAT_MESSAGES = "LOAD_USER_CHAT_MESSAGES";
-export const LOAD_USER_CHAT_MESSAGES_SUCCESS = "LOAD_USER_CHAT_MESSAGES_SUCCESS";
-
-export const LOAD_USER_FRIENDS_ALL_MESSAGE = "LOAD_USER_FRIENDS_ALL_MESSAGE";
-export const LOAD_USER_FRIENDS_ALL_MESSAGE_FINISH = "LOAD_USER_FRIENDS_ALL_MESSAGE_FINISH";
+export const LOAD_USER_FRIEND_ALL_MESSAGE_FINISH = "LOAD_USER_FRIEND_ALL_MESSAGE_FINISH";
 export const LOAD_FAILURE = "LOAD_FAILURE";
 export const LOAD_ERROR = "LOAD_ERROR";
-
 
 export function showScreen(name = "home") {
   let listOfPages = ["home", "allUsers", "help"];
@@ -31,24 +26,28 @@ export function showScreen(name = "home") {
   }
 }
 
-export function getAllMessagesForUser(username, token) {
-  return dispatch => {
-    dispatch({type: LOAD_USER_FRIENDS_ALL_MESSAGE});
+export function getAllMessagesForUser(other_user) {
+  return (dispatch, getState) => {
+    let {user, token} = getState().login.userData;
+
     return postData(hostname + "/rest/message/getAllMessages/",
       {
-        "username": username,
-        "token": token
+        "username": user,
+        "token": token,
+        "friend": other_user,
       }
     ).then((result) => {
-      if (result.status === "true") {
-        return dispatch({type: LOAD_USER_FRIENDS_ALL_MESSAGE_FINISH, content: result.contents});
-      } else {
-        return dispatch({type: LOAD_FAILURE, requestName: "getAllMessagesForUser", message: result.message});
+        if (result.status === true) {
+          return dispatch({type: LOAD_USER_FRIEND_ALL_MESSAGE_FINISH, friend: other_user, contents: result.contents});
+        } else {
+          console.log(result);
+          return dispatch({type: LOAD_FAILURE, requestName: "getAllMessagesForUser", message: result.message});
+        }
+      }, (err) => {
+        console.log(err);
+        return dispatch({type: LOAD_ERROR, requestName: "getAllMessagesForUser"})
       }
-    }, (err) => {
-      console.log(err);
-      return dispatch({type: LOAD_ERROR, requestName: "getAllMessagesForUser"})
-    })
+    )
   }
 }
 
@@ -57,7 +56,6 @@ export function getAllFriendsForUser() {
     dispatch({type: LOAD_USER_FRIENDS});
     let username = getState().login.userData.user;
     let token = getState().login.userData.token;
-    console.log("data from the store:" + username + "," + token);   //TODO remove this
     return postData(hostname + "/rest/message/getUserFriends/",
       {
         "username": username,
@@ -65,9 +63,14 @@ export function getAllFriendsForUser() {
       }
     ).then((result) => {
       if (result.status === true) {
-        console.log(result.friends);
-        return dispatch({type: LOAD_USER_FRIENDS_SUCCESS, friends: result.friends});
+        result.friends.forEach((friend) => {
+          dispatch(getAllMessagesForUser(friend))
+        });
+        // if (result.friends == []) {
+        //   return dispatch({type: LOAD_USER_FRIENDS_SUCCESS, friends: []});
+        // }
 
+        return dispatch({type: LOAD_USER_FRIENDS_SUCCESS, friends: result.friends});
       } else {
         return dispatch({type: LOAD_FAILURE, requestName: "getAllFriendsForUser", message: result.message});
       }
@@ -78,31 +81,88 @@ export function getAllFriendsForUser() {
   }
 }
 
-export const LOAD_USER_FRIENDS_MESSAGE_PEEK = "LOAD_USER_FRIENDS_MESSAGE_PEEK";
-export const LOAD_USER_FRIENDS_MESSAGE_PEEK_SUCCESS = "LOAD_USER_FRIENDS_MESSAGE_PEEK_SUCCESS";
+export const SEND_MESSAGE = "SEND_MESSAGE";
+export const SEND_MESSAGE_SUCCESS = "SEND_MESSAGE_SUCCESS";
+export const SEND_MESSAGE_FAILURE = "SEND_MESSAGE_FAILURE";
+export const SEND_MESSAGE_ERROR = "SEND_MESSAGE_ERROR";
 
-export function peekMessagesForUserWithFriend(friend) {
+export function sendMessage(receiver, content) {
   return (dispatch, getState) => {
-    dispatch({type: LOAD_USER_FRIENDS_MESSAGE_PEEK});
-    let username = getState().login.userData.user;
-    let token = getState().login.userData.token;
-    return postData(hostname + "/rest/message/peekMessages/",
+    dispatch({type: SEND_MESSAGE, content: content});
+    let {user, token} = getState().login.userData;
+    return postData(hostname + "/rest/message/sendMessage/",
       {
-        "username": username,
-        "token": token
+        "username": user,
+        "token": token,
+        "receiver": receiver,
+        "content": content,
       }
     ).then((result) => {
-      if (result.status === true) {
-        return dispatch({type: LOAD_USER_FRIENDS_MESSAGE_PEEK_SUCCESS, friends: result.friends});
-      } else {
-        return dispatch({type: LOAD_FAILURE, requestName: "peekMessagesForUserWithFriend", message: result.message});
+        if (result.status === true) {
+          setTimeout(() => dispatch(getAllMessagesForUser(receiver)), 700);
+          return dispatch({
+            type: SEND_MESSAGE_SUCCESS, receiver: receiver, contents:
+              {
+                "username": user,
+                "receiver": receiver,
+                "message": content,
+                "timeSent": (new Date()).getTime() / 1000
+              }
+          });
+        } else {
+          console.log(result);
+          return dispatch({type: SEND_MESSAGE_FAILURE, requestName: "sendMessage", message: result.message});
+        }
+      }, (err) => {
+        console.log(err);
+        return dispatch({type: SEND_MESSAGE_ERROR, requestName: "sendMessage", message: "Network/API issues"})
       }
-    }, (err) => {
-      console.log(err);
-      return dispatch({type: LOAD_ERROR, requestName: "peekMessagesForUserWithFriend"})
-    })
+    )
   }
 }
+
+export const LOAD_ALL_USERS = "LOAD_ALL_USERS";
+export const LOAD_ALL_USERS_SUCCESS = "LOAD_ALL_USERS_SUCCESS";
+export const LOAD_ALL_USERS_ERROR = "LOAD_ALL_USERS_ERROR";
+
+export function getAllUsers() {
+  return (dispatch) => {
+    dispatch({type: LOAD_ALL_USERS});
+    return getData(hostname + "/rest/user/").then((result) => {
+        return dispatch({type: LOAD_ALL_USERS_SUCCESS, users: result});
+      }, (err) => {
+        console.log(err);
+        return dispatch({type: LOAD_ALL_USERS_ERROR, requestName: "getAllUsers"})
+      }
+    )
+  }
+}
+
+// export const LOAD_USER_FRIENDS_MESSAGE_PEEK = "LOAD_USER_FRIENDS_MESSAGE_PEEK";
+// export const LOAD_USER_FRIENDS_MESSAGE_PEEK_SUCCESS = "LOAD_USER_FRIENDS_MESSAGE_PEEK_SUCCESS";
+//
+// export function peekMessagesForUserWithFriend(friend) {
+//   return (dispatch, getState) => {
+//     dispatch({type: LOAD_USER_FRIENDS_MESSAGE_PEEK});
+//     let username = getState().login.userData.user;
+//     let token = getState().login.userData.token;
+//     return postData(hostname + "/rest/message/peekMessages/",
+//       {
+//         "username": username,
+//         "token": token
+//       }
+//     ).then((result) => {
+//       if (result.status === true) {
+//         return dispatch({type: LOAD_USER_FRIENDS_MESSAGE_PEEK_SUCCESS, friends: result.friends});
+//       } else {
+//         return dispatch({type: LOAD_FAILURE, requestName: "peekMessagesForUserWithFriend", message: result.message});
+//       }
+//     }, (err) => {
+//       console.log(err);
+//       return dispatch({type: LOAD_ERROR, requestName: "peekMessagesForUserWithFriend"})
+//     })
+//   }
+// }
 
 
 
