@@ -8,7 +8,7 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/junit-4.13-beta-2.jar"/>
-	<classpathentry kind="lib" path="lib/hamcrest-2.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/junit-4.13-beta-2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/hamcrest-2.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
