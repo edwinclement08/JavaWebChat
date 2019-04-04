@@ -1,53 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="97bdf507-3273-496d-958e-2ded160d5d86" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../../../.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../asset-manifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../css/material.cyan-light_blue.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../css/material.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../css/material.min.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../css/styles.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../favicon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../images/android-desktop.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../images/dog.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../images/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../images/ios-desktop.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../images/user.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../index-bkp.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../index2.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../index3.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../js/jquery-3.3.1.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../js/main.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../js/material.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../js/material.min.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../manifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/_util.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/_util.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/screen.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/screen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ChatCardComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ChatCardComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/screen.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/screen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../precache-manifest.155f35b059e45bee5a35a8ada9fd6405.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../precache-manifest.f38de1dd39dc91420d4949cbe833dabe.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../service-worker.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../static/css/main.777b57b3.chunk.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../static/css/main.777b57b3.chunk.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../static/js/2.85988f40.chunk.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../static/js/2.85988f40.chunk.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../static/js/main.8254404e.chunk.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../static/js/main.8254404e.chunk.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../static/js/runtime~main.c5541365.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../static/js/runtime~main.c5541365.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../static/media/noUserLoggedIn.347ea58c.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../hs_err_pid876.log" beforeDir="false" />
-    </list>
+    <list default="true" id="97bdf507-3273-496d-958e-2ded160d5d86" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -63,7 +17,7 @@
         <entry file="file://$PROJECT_DIR$/src/components/ChatCardComponent.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="419">
-              <caret line="83" column="36" lean-forward="true" selection-start-line="83" selection-start-column="36" selection-end-line="83" selection-end-column="36" />
+              <caret line="83" column="36" selection-start-line="83" selection-start-column="36" selection-end-line="83" selection-end-column="36" />
               <folding>
                 <element signature="e#207#242#0" expanded="true" />
               </folding>
@@ -87,7 +41,7 @@
         <entry file="file://$PROJECT_DIR$/src/reducers/login.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="301">
-              <caret line="38" column="21" lean-forward="true" selection-start-line="38" selection-start-column="21" selection-end-line="38" selection-end-column="21" />
+              <caret line="38" column="21" selection-start-line="38" selection-start-column="21" selection-end-line="38" selection-end-column="21" />
               <folding>
                 <element signature="e#0#177#0" expanded="true" />
               </folding>
@@ -98,8 +52,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/actions/screen.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="92">
-              <caret line="90" column="36" selection-start-line="90" selection-start-column="36" selection-end-line="90" selection-end-column="36" />
+            <state relative-caret-position="181">
+              <caret line="162" selection-start-line="162" selection-end-line="162" />
             </state>
           </provider>
         </entry>
@@ -108,7 +62,7 @@
         <entry file="file://$PROJECT_DIR$/src/reducers/screen.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-21">
-              <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="15" selection-end-column="3" />
+              <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="15" selection-end-column="3" />
               <folding>
                 <element signature="e#0#51#0" expanded="true" />
               </folding>
@@ -337,39 +291,6 @@
     </option>
   </component>
   <component name="RunManager" selected="npm.build">
-    <configuration name="renders without crashing" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/node_modules/react-scripts" />
-      <working-dir value="$PROJECT_DIR$" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/src/App.test.js" />
-      <test-names>
-        <test-name value="renders without crashing" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="build" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="start" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="npm.build" />
@@ -408,13 +329,13 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60007000" />
+    <option name="totallyTimeSpent" value="60360000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1920" height="1001" extended-state="6" />
+    <frame x="-1" y="23" width="1920" height="1001" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13112165" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13112165" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -596,7 +517,7 @@
     <entry file="file://$PROJECT_DIR$/src/reducers/login.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="301">
-          <caret line="38" column="21" lean-forward="true" selection-start-line="38" selection-start-column="21" selection-end-line="38" selection-end-column="21" />
+          <caret line="38" column="21" selection-start-line="38" selection-start-column="21" selection-end-line="38" selection-end-column="21" />
           <folding>
             <element signature="e#0#177#0" expanded="true" />
           </folding>
@@ -616,7 +537,7 @@
     <entry file="file://$PROJECT_DIR$/src/components/ChatCardComponent.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="419">
-          <caret line="83" column="36" lean-forward="true" selection-start-line="83" selection-start-column="36" selection-end-line="83" selection-end-column="36" />
+          <caret line="83" column="36" selection-start-line="83" selection-start-column="36" selection-end-line="83" selection-end-column="36" />
           <folding>
             <element signature="e#207#242#0" expanded="true" />
           </folding>
@@ -636,7 +557,7 @@
     <entry file="file://$PROJECT_DIR$/src/reducers/screen.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-21">
-          <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="15" selection-end-column="3" />
+          <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="15" selection-end-column="3" />
           <folding>
             <element signature="e#0#51#0" expanded="true" />
           </folding>
@@ -645,8 +566,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/actions/screen.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="90" column="36" selection-start-line="90" selection-start-column="36" selection-end-line="90" selection-end-column="36" />
+        <state relative-caret-position="181">
+          <caret line="162" selection-start-line="162" selection-end-line="162" />
         </state>
       </provider>
     </entry>

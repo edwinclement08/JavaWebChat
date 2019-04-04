@@ -9,38 +9,12 @@
 			"name": "User",
 			"item": [
 				{
-					"name": "List of Users",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "http://localhost:8080/ChatServer/rest/user/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"ChatServer",
-								"rest",
-								"user",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Info about {{username}}",
+					"name": "List of Users jSON",
 					"event": [
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "10f8812e-4ce1-404a-b98e-41e92181c281",
+								"id": "908a714c-0a5f-4ea9-82ce-bbccff1086a6",
 								"exec": [
 									""
 								],
@@ -50,72 +24,6 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "http://localhost:8080/ChatServer/rest/user/username/{{username}}",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"ChatServer",
-								"rest",
-								"user",
-								"username",
-								"{{username}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Info about id",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "10f8812e-4ce1-404a-b98e-41e92181c281",
-								"exec": [
-									"pm.environment.set(\"username\", \"John\");"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "http://localhost:8080/ChatServer/rest/user/id/2",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"ChatServer",
-								"rest",
-								"user",
-								"id",
-								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Register User",
-					"request": {
-						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
@@ -125,29 +33,93 @@
 							}
 						],
 						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "username",
-									"value": "{{username}}",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "{{password}}",
-									"type": "text"
-								}
-							]
+							"mode": "raw",
+							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8080/ChatServer/rest/user/register/",
+							"raw": "http://localhost:8080/rest/user/details",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"ChatServer",
+								"rest",
+								"user",
+								"details"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "name of Users jSON",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "908a714c-0a5f-4ea9-82ce-bbccff1086a6",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/rest/user/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rest",
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register User JSON",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"kevin\",\n    \"password\": \"me_is_king\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/rest/user/register/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
 								"rest",
 								"user",
 								"register",
@@ -158,46 +130,29 @@
 					"response": []
 				},
 				{
-					"name": "Update User",
+					"name": "Update User JSON",
 					"request": {
 						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
 								"name": "Content-Type",
-								"type": "text",
-								"value": "application/x-www-form-urlencoded"
+								"value": "application/json",
+								"type": "text"
 							}
 						],
 						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "username",
-									"value": "{{username}}",
-									"type": "text"
-								},
-								{
-									"key": "oldpassword",
-									"value": "{{oldpassword}}",
-									"type": "text"
-								},
-								{
-									"key": "newpassword",
-									"value": "{{newpassword}}",
-									"type": "text"
-								}
-							]
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"kevin\",\n    \"oldpassword\": \"me_is_king\",\n    \"newpassword\": \"metal\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/ChatServer/rest/user/update/",
+							"raw": "http://localhost:8080/rest/user/update/",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"ChatServer",
 								"rest",
 								"user",
 								"update",
@@ -208,41 +163,29 @@
 					"response": []
 				},
 				{
-					"name": "Login User",
+					"name": "Login User JSON",
 					"request": {
 						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
 								"name": "Content-Type",
-								"type": "text",
-								"value": "application/x-www-form-urlencoded"
+								"value": "application/json",
+								"type": "text"
 							}
 						],
 						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "username",
-									"value": "{{username}}",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "{{password}}",
-									"type": "text"
-								}
-							]
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"kevin\",\n\t\"password\": \"me_is_king\"\n\t\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/ChatServer/rest/user/login/",
+							"raw": "http://localhost:8080/rest/user/login/",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"ChatServer",
 								"rest",
 								"user",
 								"login",
@@ -253,41 +196,29 @@
 					"response": []
 				},
 				{
-					"name": "Delete User",
+					"name": "Delete User JSON",
 					"request": {
 						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
 								"name": "Content-Type",
-								"type": "text",
-								"value": "application/x-www-form-urlencoded"
+								"value": "application/json",
+								"type": "text"
 							}
 						],
 						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "username",
-									"value": "{{username}}",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "{{password}}",
-									"type": "text"
-								}
-							]
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"kevin\",\n\t\"password\": \"metal\"\n\t\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/ChatServer/rest/user/delete/",
+							"raw": "http://localhost:8080/rest/user/delete/",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"ChatServer",
 								"rest",
 								"user",
 								"delete",
@@ -300,28 +231,234 @@
 			]
 		},
 		{
-			"name": "Online Check",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://localhost:8080/ChatServer/",
-					"protocol": "http",
-					"host": [
-						"localhost"
+			"name": "Message",
+			"item": [
+				{
+					"name": "sendMessage JSON",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "a4389601-11c5-46eb-8292-7ffd62efccd9",
+								"exec": [
+									"pm.environment.set(\"token\", \"oNUAMOoihZxSpOxvqFtn0XqwH\");"
+								],
+								"type": "text/javascript"
+							}
+						}
 					],
-					"port": "8080",
-					"path": [
-						"ChatServer",
-						""
-					]
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"receiver\": \"kevin\",\n    \"username\": \"John\",\n    \"token\": \"BJ5CsEQIozhld4BYWifqPbsn7\",\n    \"content\": \"final Test v34\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/rest/message/sendMessage/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rest",
+								"message",
+								"sendMessage",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllMessages JSON",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "a4389601-11c5-46eb-8292-7ffd62efccd9",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"John\",\n    \"token\": \"g1Nx65NnGk0nuyMVbfqEsrW2l\",\n    \"friend\": \"kevin\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/rest/message/getAllMessages/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rest",
+								"message",
+								"getAllMessages",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserFriends JSON",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "a4389601-11c5-46eb-8292-7ffd62efccd9",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"Susan\",\n    \"token\": \"ptRyeRIfyiUUUlINXf6qG2OA9\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/rest/message/getUserFriends/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rest",
+								"message",
+								"getUserFriends",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "peekMessages JSON Copy",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "a4389601-11c5-46eb-8292-7ffd62efccd9",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"Susan\",\n    \"token\": \"gyMJ6go2vzrJedqImmG5SUP9n\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/rest/message/peekMessages/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rest",
+								"message",
+								"peekMessages",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getNewMessages JSON",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "a4389601-11c5-46eb-8292-7ffd62efccd9",
+								"exec": [
+									"pm.environment.set(\"token\", \"Z8qE83izgolhvcTB4CGaONYty\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"kevin\",\n    \"token\": \"wjmhHwPLF6gSK8oLoOLSBN5zW\",\n    \"friend\": \"Susan\"\n} "
+						},
+						"url": {
+							"raw": "http://localhost:8080/rest/message/getNewMessages/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rest",
+								"message",
+								"getNewMessages",
+								""
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		}
 	]
 }
