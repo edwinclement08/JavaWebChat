@@ -1,8 +1,7 @@
 import {getAllFriendsForUser, getAllUsers, showScreen} from "./screen";
 
-import {postData, getData} from "./_util";
+import {postData, hostname} from "./_util";
 
-export const hostname = "http://192.168.0.192:8080";
 
 export const SHOW_LOGIN_MODAL = 'SHOW_LOGIN_MODAL';
 export const HIDE_LOGIN_MODAL = 'HIDE_LOGIN_MODAL';
@@ -117,7 +116,7 @@ export function signupUser(username, password) {
           dispatch(getAllUsers());
 
         }, 200);
-        return dispatch(signupSuccessful(result.user, result.token));
+        return dispatch(signupSuccessful(result.username, result.token));
       } else {
         return dispatch(signupFailure("Signup Failure"));
       }

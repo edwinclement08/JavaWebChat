@@ -9,4 +9,6 @@ WebChatServer/tempMessageFileTest\.message\.xml
 
 WebChatServer/tempUserFileTest\.user\.xml
 
+apache-tomcat-9\.0\.16/webapps/
+
 WebChatServer/war/

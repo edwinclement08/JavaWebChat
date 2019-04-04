@@ -1,6 +1,5 @@
 import * as ScreenActions from "../actions/screen";
 import produce from "immer";
-import {LOAD_ALL_USERS_SUCCESS} from "../actions/screen";
 
 function screenReducer(state, action) {
   if (typeof state === 'undefined') {
@@ -37,6 +36,11 @@ function screenReducer(state, action) {
         return draft;
       });
     case ScreenActions.LOAD_ALL_USERS_SUCCESS:
+      return produce(state, (draft) => {
+        draft.details.home.users = action.users;
+        return draft;
+      });
+    case ScreenActions.CHAT_SENT:
       return produce(state, (draft) => {
         draft.details.home.users = action.users;
         return draft;

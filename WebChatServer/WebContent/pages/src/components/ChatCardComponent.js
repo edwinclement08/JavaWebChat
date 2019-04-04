@@ -101,13 +101,10 @@ class ChatCardComponent extends React.Component {
       let len = messages.length;
       messages.forEach((message, index) => {
         if (message.sender === this.props.friend) {
-          console.log(message.sender, this.props.friend, (message.sender !== this.props.friend))
-
+          // console.log(message.sender, this.props.friend, (message.sender !== this.props.friend))
           chatElms.push(<ChatElement key={index} userIsReceiver content={message.message} timeSent={message.timeSent}/>)
-
         } else {
-          console.log(message.sender, this.props.friend, (message.sender == this.props.friend))
-
+          // console.log(message.sender, this.props.friend, (message.sender == this.props.friend))
           chatElms.push(<ChatElement key={index} userIsSender content={message.message} timeSent={message.timeSent}/>)
         }
       });
