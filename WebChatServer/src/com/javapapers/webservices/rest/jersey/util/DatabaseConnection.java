@@ -9,7 +9,7 @@ public class DatabaseConnection {
 	private Connection con;
 
 	private String jdbcDriver = "com.mysql.cj.jdbc.Driver";
-	private String dbAddress = "jdbc:mysql://localhost:3306/chatdb2?createDatabaseIfNotExist=true";
+	private String dbAddress = "jdbc:mysql://mysqlserver:3306/chatdb2?createDatabaseIfNotExist=true";
 	private String userName = "root";
 	private String password = "passwordalpha9";
 
@@ -17,7 +17,7 @@ public class DatabaseConnection {
 		try {
 			Class.forName(jdbcDriver);
 			con = DriverManager.getConnection(dbAddress, userName, password);
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("DB Connection Failure");
 		} catch (ClassNotFoundException e) {
@@ -29,9 +29,9 @@ public class DatabaseConnection {
 	public Connection getConnection() {
 		return con;
 	}
-	
+
 	public static DatabaseConnection getDatabase() {
-		if (_instance  == null) {
+		if (_instance == null) {
 			_instance = new DatabaseConnection();
 		}
 		return _instance;

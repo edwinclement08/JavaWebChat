@@ -1,11 +1,17 @@
-version: '2'
+version: '3'
 services:
-  db:
+  webserver:
+    build: .
+    ports:
+    - "8081:8080"
+  mysqlserver:
     image: 'mysql:5.7'
     volumes:
        - './mysql-data:/var/lib/mysql'
     ports:
-      - 3306:3306
+      - "3306:3306"
+    expose:
+      - "3306"
     environment:
        MYSQL_ROOT_PASSWORD: 'passwordalpha9'
        MYSQL_DATABASE: 'db'

@@ -1,4 +1,5 @@
-export const hostname = "http://192.168.0.192:8080";
+// export const hostname = "http://183.87.247.18:8081";
+export const hostname = "http://localhost:8080";
 
 export function postData(url = ``, data = {}) {
   // Default options are marked with *
