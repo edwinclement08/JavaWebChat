@@ -5,5 +5,5 @@ RUN mkdir /usr/local/tomcat/webapps/myapp
 RUN rm -rf /usr/local/tomcat/webapps/ROOT
 RUN rm -f /usr/local/tomcat/webapps/ROOT.war
 
-
 COPY ./war/JavaWebChat-v1.war /usr/local/tomcat/webapps/ROOT.war
+COPY web.xml /usr/local/tomcat/conf/web.xml
